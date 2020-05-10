@@ -1,0 +1,62 @@
+.output-data {
+    margin-top: 50px;
+}
+
+#action {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    a {
+        display: inline;
+        color: black;
+        padding: 0 10px 0 0 !important;
+    }
+
+    .btn {
+        padding: 0 10px !important;
+    }
+}
+
+#helpId {
+    padding: 5px 0 !important;
+}
+
+.button-red {
+    outline: none;
+    border: none;
+    background-color: rgb(141, 53, 53);
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    transition: 0.2s ease-in;
+    border: 1px solid rgb(141, 53, 53);
+
+    &:hover {
+        background-color: rgb(165, 97, 97);
+        color: white;
+        transition: 0.2s ease-out;
+        border: 1px solid rgb(165, 97, 97);
+    }
+}
+
+.alumni {
+    margin: 50px 15%;
+    display: flex;
+    flex-wrap: wrap;
+
+    .alumni-title {
+        margin-bottom: 70px;
+        flex-basis: 100%;
+    }
+
+    .alumni-left {
+        width: 45%;
+        padding-right: 40px;
+        border-right: 1px solid rgba($color: #727272, $alpha: 0.3);
+    }
+
+    .alumni-right {
+        margin-left: 40px;
+        width: 45%;
+    }
+}
