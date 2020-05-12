@@ -15,9 +15,7 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswa = Mahasiswa::paginate(10);
-        $prodi = Prodi::all();
-        return view('mahasiswa', compact('mahasiswa', 'prodi'));
+
     }
 
     /**
@@ -27,7 +25,9 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-
+        $mahasiswa = Mahasiswa::paginate(10);
+        $prodi = Prodi::all();
+        return view('mahasiswa.create', compact('mahasiswa', 'prodi'));
     }
 
     /**
@@ -70,7 +70,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = Mahasiswa::where('NIM', $id)->firstOrFail();
         $prodi = Prodi::all();
-        return view ('updatemahasiswa', ['mahasiswa'=> $mahasiswa ], compact('prodi'));
+        return view ('mahasiswa.edit', ['mahasiswa'=> $mahasiswa ], compact('prodi'));
     }
 
     /**

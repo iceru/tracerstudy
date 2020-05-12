@@ -33,7 +33,7 @@
           </div>
 
         <button class="btn btn-warning" type="submit">Update</button>
-        <button class="btn btn-secondary" href="{{ route('opsi.index') }}">Cancel</button>
+        <button class="btn btn-secondary" href="{{ route('opsi.create') }}">Cancel</button>
     </form>
 
 </div>

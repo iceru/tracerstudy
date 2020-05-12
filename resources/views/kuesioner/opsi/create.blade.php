@@ -43,23 +43,26 @@ Opsi
             </tr>
         </thead>
         <tbody>
-            @foreach ($opsi as $item)
+            @foreach ($opsis as $opsi)
             <tr>
-                <td scope="row">{{ $loop->iteration }}</td>
-                <td>{{ $item->id }}</td>
-                <td>{{ $item->nama_opsi }}</td>
-                <td>{{ $item->pertanyaan->nama_pertanyaan }}</td>
+                <td scope="row">{{ ($opsis ->currentpage()-1) * $opsis ->perpage() + $loop->index + 1 }}</td>
+                <td>{{ $opsi->id }}</td>
+                <td>{{ $opsi->nama_opsi }}</td>
+                <td>{{ $opsi->pertanyaan->nama_pertanyaan }}</td>
                 <td id="action">
-                    <a href="{{ route('opsi.edit', $item->id) }}">Edit </a>
-                    <form action="{{ route('opsi.destroy', $item->id )}}" method="get">
+                    <a href="{{ route('opsi.edit', $opsi->id) }}">Edit </a>
+                    <form action="{{ route('opsi.destroy', $opsi->id )}}" method="get">
                         @csrf
                         @method('DELETE')
                         <button class="btn" type="submit">Delete</button>
                     </form>
                 </td>
             </tr>
+
             @endforeach
         </tbody>
     </table>
+    {{ $opsis->links() }}
+
 </div>
 @endsection

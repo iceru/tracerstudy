@@ -18,8 +18,7 @@ class AlumniController extends Controller
      */
     public function index()
     {
-        $mahasiswa = Mahasiswa::all();
-        return view('alumni', compact('mahasiswa'));
+
     }
 
     /**
@@ -29,7 +28,8 @@ class AlumniController extends Controller
      */
     public function create()
     {
-        //
+        $mahasiswa = Mahasiswa::all();
+        return view('alumni.create', compact('mahasiswa'));
     }
 
     /**

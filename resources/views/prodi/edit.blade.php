@@ -33,7 +33,7 @@
           </div>
 
         <button class="btn btn-warning" type="submit">Update</button>
-        <button class="btn btn-secondary" href="{{ route('prodi.index') }}">Cancel</button>
+        <button class="btn btn-secondary" href="{{ route('prodi.create') }}">Cancel</button>
     </form>
 
 </div>

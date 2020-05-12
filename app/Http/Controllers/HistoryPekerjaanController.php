@@ -51,7 +51,7 @@ class HistoryPekerjaanController extends Controller
         $history->save();
 
         $id = $history->id;
-        return redirect()->route('kuesioner.index', ['id' => $id]);
+        return redirect()->route('kuesioner.show', ['id' => $id]);
 
     }
 

@@ -16,10 +16,7 @@ class ProdiController extends Controller
      */
     public function index()
     {
-        $prodi = Prodi::paginate(10);
-        $fakultas = Fakultas::all();
 
-        return view('prodi', compact('prodi', 'fakultas'));
     }
 
     /**
@@ -29,7 +26,10 @@ class ProdiController extends Controller
      */
     public function create()
     {
-        //
+        $prodi = Prodi::paginate(10);
+        $fakultas = Fakultas::all();
+
+        return view('prodi.create', compact('prodi', 'fakultas'));
     }
 
     /**
@@ -70,7 +70,7 @@ class ProdiController extends Controller
     {
         $prodi = Prodi::where('id', $id)->firstOrFail();
         $fakultas = Fakultas::all();
-        return view ('updateprodi', ['prodi'=> $prodi ], compact('fakultas'));
+        return view ('prodi.edit', ['prodi'=> $prodi ], compact('fakultas'));
     }
 
     /**

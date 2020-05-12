@@ -15,8 +15,7 @@ class SektorController extends Controller
      */
     public function index()
     {
-        $sektor = Sektor::paginate(10);
-        return view('sektor', compact('sektor'));
+
     }
 
     /**
@@ -26,7 +25,8 @@ class SektorController extends Controller
      */
     public function create()
     {
-        //
+        $sektor = Sektor::paginate(10);
+        return view('perusahaan.sektor.create', compact('sektor'));
     }
 
     /**
@@ -65,7 +65,7 @@ class SektorController extends Controller
     public function edit($id)
     {
         $sektor = Sektor::where('id', $id)->firstOrFail();
-        return view ('updatesektor', ['sektor' => $sektor]);
+        return view ('perusahaan.sektor.edit', ['sektor' => $sektor]);
     }
 
     /**

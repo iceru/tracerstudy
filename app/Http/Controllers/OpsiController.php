@@ -16,9 +16,7 @@ class OpsiController extends Controller
      */
     public function index()
     {
-        $opsi = Opsi::paginate(10);
-        $pertanyaan = Pertanyaan::all();
-        return view('opsi', compact('opsi', 'pertanyaan'));
+
     }
 
     /**
@@ -28,7 +26,9 @@ class OpsiController extends Controller
      */
     public function create()
     {
-        //
+        $opsis = Opsi::paginate(10);
+        $pertanyaan = Pertanyaan::all();
+        return view('kuesioner.opsi.create', compact('opsis', 'pertanyaan'));
     }
 
     /**
@@ -42,7 +42,7 @@ class OpsiController extends Controller
         $opsi = Opsi::insert([
             'id' => $id = IdGenerator::generate(['table' => 'opsi_pertanyaan', 'length' => 6, 'prefix' =>'OP-']),
             'nama_opsi' => $request->nama_opsi,
-            'id_pertanyaan' => $request->id_pertanyaan
+            'pertanyaan_id' => $request->id_pertanyaan
         ]);
 
         return redirect('/opsi-pertanyaan');
@@ -69,7 +69,7 @@ class OpsiController extends Controller
     {
         $opsi = Opsi::where('id', $id)->firstOrFail();
         $pertanyaan = Pertanyaan::all();
-        return view ('updateopsi', ['opsi'=> $opsi ], compact('pertanyaan'));
+        return view ('kuesioner.opsi.edit', ['opsi'=> $opsi ], compact('pertanyaan'));
     }
 
     /**
@@ -83,7 +83,7 @@ class OpsiController extends Controller
     {
         $opsi = Opsi::where('id', $id)->update([
             'nama_opsi' => $request->nama_opsi,
-            'id_pertanyaan' => $request->id_pertanyaan
+            'pertanyaan_id' => $request->id_pertanyaan
         ]);
         return redirect('/opsi-pertanyaan');
     }

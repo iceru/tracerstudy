@@ -15,12 +15,10 @@ class KuesionerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
         $pertanyaan = Pertanyaan::all();
-        $opsi = Opsi::all();
-        $history = HistoryPekerjaan::where('id', $id)->first();
-        return view('kuesioner', compact('opsi', 'pertanyaan', 'history'));
+        return view('kuesioner.admin', compact('pertanyaan'));
     }
 
     /**
@@ -30,7 +28,7 @@ class KuesionerController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -41,7 +39,10 @@ class KuesionerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $data = request()->validate([
+           'responses.*.opsi_id' => 'required',
+           'responses.*.question_id' => 'required',
+       ]);
     }
 
     /**
@@ -52,7 +53,9 @@ class KuesionerController extends Controller
      */
     public function show($id)
     {
-        //
+        $pertanyaan = Pertanyaan::all();
+        $history = HistoryPekerjaan::where('id', $id)->first();
+        return view('kuesioner.create', compact('pertanyaan', 'history'));
     }
 
     /**

@@ -24,6 +24,16 @@
         </div>
 
         <div class="form-group">
+            <label for="">Alamat Perusahaan</label>
+            <input type="text" class="form-control" name="alamat_perusahaan" id="alamat_perusahaan" value="{{ old('alamat_perusahaan', $perusahaan->alamat_perusahaan) }}" >
+        </div>
+
+        <div class="form-group">
+            <label for="">Kontak Perusahaan</label>
+            <input type="text" class="form-control" name="kontak_perusahaan" id="kontak_perusahaan" value="{{ old('kontak_perusahaan', $perusahaan->kontak_perusahaan) }}" >
+        </div>
+
+        <div class="form-group">
             <label for="">Sektor Perusahaan</label>
             <select class="form-control" name="id_sektor" id="id_sektor">
                 @foreach ($sektor as $sektor)
@@ -33,7 +43,7 @@
           </div>
 
         <button class="btn btn-warning" type="submit">Update</button>
-        <button class="btn btn-secondary" href="{{ route('perusahaan.index') }}">Cancel</button>
+        <button class="btn btn-secondary" href="{{ route('perusahaan.create') }}">Cancel</button>
     </form>
 
 </div>

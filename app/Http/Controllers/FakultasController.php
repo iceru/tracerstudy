@@ -15,9 +15,7 @@ class FakultasController extends Controller
      */
     public function index()
     {
-        $fakultas = Fakultas::paginate(10);
 
-        return view('fakultas', compact('fakultas'));
     }
 
     /**
@@ -27,7 +25,9 @@ class FakultasController extends Controller
      */
     public function create()
     {
+        $fakultas = Fakultas::paginate(10);
 
+        return view('fakultas.create', compact('fakultas'));
     }
 
     /**
@@ -66,7 +66,7 @@ class FakultasController extends Controller
     public function edit($id)
     {
         $fakultas = Fakultas::where('id', $id)->firstOrFail();
-        return view ('updatefakultas', ['fakultas'=> $fakultas ]);
+        return view ('fakultas.edit', ['fakultas'=> $fakultas ]);
     }
 
     /**

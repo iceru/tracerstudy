@@ -17,6 +17,15 @@ Pertanyaan
             <input type="text" class="form-control" name="nama_pertanyaan" id="nama_pertanyaan">
         </div>
 
+        <div class="form-group">
+            <label for="jenis_pertanyaan">Jenis Pertanyaan</label>
+             <select class="form-control" name="jenis_pertanyaan" id="jenis_pertanyaan">
+               <option value="multiple-choice">Multiple Choice</option>
+               <option value="multiple-answer">Multiple Answer</option>
+               <option value="direct-answer">Direct Answer</option>
+             </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

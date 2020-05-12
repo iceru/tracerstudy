@@ -25,13 +25,13 @@
                     <p>Hello, Admin</p>
                     <p class="small">Administrator</p>
                     <li>
-                        <a href="{{ route('fakultas.index') }}"><i class="fas fa-headphones"></i> Fakultas</a>
+                        <a href="{{ route('fakultas.create') }}"><i class="fas fa-headphones"></i> Fakultas</a>
                     </li>
                     <li>
-                        <a href="/prodi">Program Studi</a>
+                        <a href="{{ route('prodi.create') }}">Program Studi</a>
                     </li>
                     <li>
-                        <a href="{{ route('mahasiswa.index') }}">Mahasiswa</a>
+                        <a href="{{ route('mahasiswa.create') }}">Mahasiswa</a>
                     </li>
 
 
@@ -41,16 +41,16 @@
                             class="dropdown-toggle">Data Alumni</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu3">
                             <li>
-                                <a href="{{ route('sektor.index') }}">Sektor Perusahaan</a>
+                                <a href="{{ route('sektor.create') }}">Sektor Perusahaan</a>
                             </li>
                             <li>
-                                <a href="{{ route('perusahaan.index') }}">Perusahaan</a>
+                                <a href="{{ route('perusahaan.create') }}">Perusahaan</a>
                             </li>
                             <li>
-                                <a href="{{ route('jabatan.index') }}">Jabatan</a>
+                                <a href="{{ route('jabatan.create') }}">Jabatan</a>
                             </li>
                             <li>
-                                <a href="{{ route('alumni.index') }}">Alumni</a>
+                                <a href="#">Alumni</a>
                             </li>
                         </ul>
                     </li>
@@ -59,10 +59,13 @@
                             class="dropdown-toggle">Kuesioner</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu1">
                             <li>
-                                <a href="{{ route('opsi.index') }}">Opsi Kuesioner</a>
+                                <a href="{{ route('kuesioner.index') }}">Data Kuesioner</a>
                             </li>
                             <li>
-                                <a href="{{ route('pertanyaan.index') }}">Pertanyaan Kuesioner</a>
+                                <a href="{{ route('opsi.create') }}">Opsi Kuesioner</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('pertanyaan.create') }}">Pertanyaan Kuesioner</a>
                             </li>
                         </ul>
                     </li>

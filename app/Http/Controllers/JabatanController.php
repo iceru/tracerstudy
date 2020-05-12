@@ -15,8 +15,7 @@ class JabatanController extends Controller
      */
     public function index()
     {
-        $jabatan = Jabatan::paginate(10);
-        return view('jabatan', compact('jabatan'));
+
     }
 
     /**
@@ -26,7 +25,8 @@ class JabatanController extends Controller
      */
     public function create()
     {
-
+        $jabatan = Jabatan::paginate(10);
+        return view('jabatan.create', compact('jabatan'));
     }
 
     /**
@@ -65,7 +65,7 @@ class JabatanController extends Controller
     public function edit($id)
     {
         $jabatan = Jabatan::where('id', $id)->firstOrFail();
-        return view ('updatejabatan', ['jabatan'=> $jabatan ]);
+        return view ('jabatan.edit', ['jabatan'=> $jabatan ]);
     }
 
     /**

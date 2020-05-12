@@ -47,7 +47,7 @@ Program Studi
         <tbody>
             @foreach ($prodi as $item)
             <tr>
-                <td scope="row">{{ $loop->iteration }}</td>
+                <td scope="row">{{ ($prodi ->currentpage()-1) * $prodi ->perpage() + $loop->index + 1 }}</td>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->nama_prodi }}</td>
                 <td>{{ $item->fakultas->nama_fakultas }}</td>
@@ -63,5 +63,6 @@ Program Studi
             @endforeach
         </tbody>
     </table>
+    {{ $prodi->links() }}
 </div>
 @endsection

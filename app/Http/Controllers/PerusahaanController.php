@@ -16,9 +16,7 @@ class PerusahaanController extends Controller
      */
     public function index()
     {
-        $perusahaan = Perusahaan::paginate(10);
-        $sektor = Sektor::all();
-        return view('perusahaan', compact('perusahaan', 'sektor'));
+
     }
 
     /**
@@ -28,7 +26,9 @@ class PerusahaanController extends Controller
      */
     public function create()
     {
-        //
+        $perusahaan = Perusahaan::paginate(10);
+        $sektor = Sektor::all();
+        return view('perusahaan.create', compact('perusahaan', 'sektor'));
     }
 
     /**
@@ -71,7 +71,7 @@ class PerusahaanController extends Controller
     {
         $perusahaan = Perusahaan::where('id', $id)->firstOrFail();
         $sektor = Sektor::all();
-        return view ('updateperusahaan', ['perusahaan'=> $perusahaan ], compact('sektor'));
+        return view ('perusahaan.edit', ['perusahaan'=> $perusahaan ], compact('sektor'));
     }
 
     /**

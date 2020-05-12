@@ -15,8 +15,7 @@ class PertanyaanController extends Controller
      */
     public function index()
     {
-        $pertanyaan = Pertanyaan::paginate(10);
-        return view('pertanyaan', compact('pertanyaan'));
+
     }
 
     /**
@@ -26,7 +25,8 @@ class PertanyaanController extends Controller
      */
     public function create()
     {
-        //
+        $pertanyaan = Pertanyaan::all();
+        return view('kuesioner.pertanyaan.create', compact('pertanyaan'));
     }
 
     /**
@@ -40,6 +40,7 @@ class PertanyaanController extends Controller
         $pertanyaan = Pertanyaan::insert([
             'id' => $id = IdGenerator::generate(['table' => 'pertanyaan', 'length' => 6, 'prefix' =>'PA-']),
             'nama_pertanyaan' => $request->nama_pertanyaan,
+            'jenis_pertanyaan' => $request->jenis_pertanyaan
         ]);
 
         return redirect('/pertanyaan');
@@ -65,7 +66,7 @@ class PertanyaanController extends Controller
     public function edit($id)
     {
         $pertanyaan = Pertanyaan::where('id', $id)->firstOrFail();
-        return view ('updatepertanyaan', ['pertanyaan'=> $pertanyaan ]);
+        return view ('kuesioner.pertanyaan.edit', ['pertanyaan'=> $pertanyaan ]);
     }
 
     /**
@@ -79,6 +80,7 @@ class PertanyaanController extends Controller
     {
         $pertanyaan = Pertanyaan::where('id', $id)->update([
             'nama_pertanyaan' => $request->nama_pertanyaan,
+            'jenis_pertanyaan' => $request->jenis_pertanyaan
         ]);
         return redirect('/pertanyaan');
     }

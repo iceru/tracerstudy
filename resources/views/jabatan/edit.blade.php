@@ -24,7 +24,7 @@
         </div>
 
         <button class="btn btn-warning" type="submit">Update</button>
-        <button class="btn btn-secondary" href="{{ route('jabatan.index') }}">Cancel</button>
+        <button class="btn btn-secondary" href="{{ route('jabatan.create') }}">Cancel</button>
     </form>
 
 </div>
