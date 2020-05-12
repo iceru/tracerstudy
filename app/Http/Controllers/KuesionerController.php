@@ -7,6 +7,7 @@ use App\Pertanyaan;
 use App\Opsi;
 use App\Alumni;
 use App\HistoryPekerjaan;
+use App\Jawaban;
 
 class KuesionerController extends Controller
 {
@@ -37,12 +38,17 @@ class KuesionerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-       $data = request()->validate([
-           'responses.*.opsi_id' => 'required',
-           'responses.*.question_id' => 'required',
-       ]);
+    public function store(Request $request, $id) {
+    // {
+    //    $data = request()->validate([
+    //        'responses.*.opsi_id' => 'required',
+    //        'responses.*.question_id' => 'required',
+    //    ]);
+
+        // $jawaban = new Jawaban;
+        // $jawaban['id_alumni'] = $request->id_alumni;
+        // $jawaban['id_pertanyaan'] = $request->'responses.*.question_id';
+
     }
 
     /**

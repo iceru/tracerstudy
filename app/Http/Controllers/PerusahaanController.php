@@ -51,6 +51,26 @@ class PerusahaanController extends Controller
     }
 
     /**
+     * Store a newly created resource in storage on client side.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storealumni(Request $request)
+    {
+        Perusahaan::insert([
+            'id' => $id = IdGenerator::generate(['table' => 'perusahaan', 'length' => 6, 'prefix' =>'P-']),
+            'nama_perusahaan' => $request->nama_perusahaan,
+            'alamat_perusahaan' => $request->alamat_perusahaan,
+            'kontak_perusahaan' => $request->kontak_perusahaan,
+            'id_sektor' => $request->id_sektor,
+        ]);
+
+        return back();
+    }
+
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Perusahaan  $perusahaan

@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\HistoryPekerjaan;
+use App\Jawaban;
+use App\Mahasiswa;
 
 class Alumni extends Model
 {
@@ -19,5 +21,10 @@ class Alumni extends Model
     public function jawaban()
     {
         return $this->hasMany(Jawaban::class);
+    }
+
+    public function mahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::class, 'NIM', 'NIM');
     }
 }

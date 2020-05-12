@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Pertanyaan;
+use App\Jawaban;
 
 class Opsi extends Model
 {
@@ -14,5 +15,10 @@ class Opsi extends Model
     public function pertanyaan()
     {
         return $this->belongsTo(Pertanyaan::class, 'pertanyaan_id');
+    }
+
+    public function jawaban()
+    {
+        return $this->hasMany(Jawaban::class);
     }
 }

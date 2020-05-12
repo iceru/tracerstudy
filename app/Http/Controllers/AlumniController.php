@@ -6,8 +6,12 @@ use App\Alumni;
 use App\Jabatan;
 use App\Perusahaan;
 use App\Mahasiswa;
+use App\Prodi;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Excel;
+use App\Exports\AlumniExport;
+use App\Imports\AlumniImport;
 
 class AlumniController extends Controller
 {
@@ -18,7 +22,9 @@ class AlumniController extends Controller
      */
     public function index()
     {
-
+        $alumnis = Alumni::paginate(10);
+        $mahasiswa = Mahasiswa::all();
+        return view ('alumni.index', compact('alumnis', 'mahasiswa'));
     }
 
     /**
@@ -29,7 +35,8 @@ class AlumniController extends Controller
     public function create()
     {
         $mahasiswa = Mahasiswa::all();
-        return view('alumni.create', compact('mahasiswa'));
+        $prodi = Prodi::all();
+        return view('alumni.create', compact('mahasiswa', 'prodi'));
     }
 
     /**
@@ -41,7 +48,7 @@ class AlumniController extends Controller
     public function store(Request $request)
     {
         $alumni = new Alumni();
-        $alumni['id'] = IdGenerator::generate(['table' => 'alumni', 'length' => 6, 'prefix' =>'AL-']);
+        $alumni['id'] = IdGenerator::generate(['table' => 'alumni', 'length' => 8, 'prefix' =>'AL-']);
         $alumni['NIM'] = $request->input('NIM');
         $alumni['email'] = $request->input('email');
         $alumni['no_hp'] = $request->input('no_hp');
@@ -51,6 +58,42 @@ class AlumniController extends Controller
         $id = $alumni->id;
         return redirect()->route('historypekerjaan.index', ['id' => $id]);
     }
+
+    public function storeadmin(Request $request)
+    {
+        $alumni = new Alumni();
+        $alumni['id'] = IdGenerator::generate(['table' => 'alumni', 'length' => 8, 'prefix' =>'AL-']);
+        $alumni['NIM'] = $request->input('NIM');
+        $alumni['email'] = $request->input('email');
+        $alumni['no_hp'] = $request->input('no_hp');
+
+        $alumni->save();
+
+        return redirect()->route('alumni.index');
+    }
+
+
+    /**
+     * Export from Excel File
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function export()
+    {
+        return Excel::download(new AlumniExport, 'alumni.xlsx');
+    }
+
+    /**
+     * Import from Excel File
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function import()
+    {
+       Excel::import(new AlumniImport,request()->file('file'));
+       return back();
+    }
+
 
     /**
      * Display the specified resource.
@@ -69,9 +112,11 @@ class AlumniController extends Controller
      * @param  \App\Alumni  $alumni
      * @return \Illuminate\Http\Response
      */
-    public function edit(Alumni $alumni)
+    public function edit($id)
     {
-        //
+        $alumni = Alumni::where('id', $id)->firstOrFail();
+        $mahasiswa = Mahasiswa::all();
+        return view ('alumni.edit', ['alumni'=> $alumni ], compact('mahasiswa'));
     }
 
     /**
@@ -81,9 +126,14 @@ class AlumniController extends Controller
      * @param  \App\Alumni  $alumni
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Alumni $alumni)
+    public function update(Request $request, $id)
     {
-        //
+        $alumni = Alumni::where('id', $id)->update([
+            'email' => $request->email,
+            'no_hp' => $request->no_hp,
+        ]);
+
+        return redirect()->route('alumni.index');
     }
 
     /**
@@ -92,9 +142,11 @@ class AlumniController extends Controller
      * @param  \App\Alumni  $alumni
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Alumni $alumni)
+    public function destroy($id)
     {
-        //
+        $alumni = Alumni::where('id', $id)->delete();
+
+        return redirect()->route('alumni.index');
     }
 
 }

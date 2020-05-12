@@ -8,6 +8,7 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Alumni;
 use App\Jabatan;
 use App\Perusahaan;
+use App\Sektor;
 
 class HistoryPekerjaanController extends Controller
 {
@@ -20,8 +21,9 @@ class HistoryPekerjaanController extends Controller
     {
         $jabatan = Jabatan::all();
         $perusahaan = Perusahaan::all();
+        $sektor = Sektor::all();
         $alumni = Alumni::where('id', $id)->firstOrFail();
-        return view('pekerjaan-alumni', compact('jabatan', 'perusahaan', 'alumni'));
+        return view('pekerjaan-alumni', compact('jabatan', 'perusahaan', 'alumni', 'sekto'));
     }
 
     /**

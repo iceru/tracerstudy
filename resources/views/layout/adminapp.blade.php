@@ -50,7 +50,7 @@
                                 <a href="{{ route('jabatan.create') }}">Jabatan</a>
                             </li>
                             <li>
-                                <a href="#">Alumni</a>
+                                <a href="{{ route('alumni.index') }}">Alumni</a>
                             </li>
                         </ul>
                     </li>

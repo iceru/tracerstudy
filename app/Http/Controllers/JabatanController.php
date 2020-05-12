@@ -45,6 +45,22 @@ class JabatanController extends Controller
         return redirect('jabatan');
     }
 
+     /**
+     * Store a newly created resource in storage on client side.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storealumni(Request $request)
+    {
+        Jabatan::insert([
+            'id' => $id = IdGenerator::generate(['table' => 'jabatan', 'length' => 6, 'prefix' =>'JB-']),
+            'nama_jabatan' => $request->nama_jabatan
+        ]);
+
+        return back();
+    }
+
     /**
      * Display the specified resource.
      *

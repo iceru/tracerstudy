@@ -12,9 +12,9 @@
 <div class="input-form">
     <form action="{{ route('fakultas.store') }}" method="post">
         @csrf
-        <div class="form-group">
-            <label for="">Nama Fakultas</label>
-            <input type="text" class="form-control" name="nama_fakultas" id="nama_fakultas" aria-describedby="helpId" placeholder="Nama Fakultas">
+        <div class="form-group row py-3">
+            <label for="" class="col-md-2">Nama Fakultas</label>
+            <input type="text" class="form-control col-md-6" name="nama_fakultas" id="nama_fakultas" aria-describedby="helpId" placeholder="Nama Fakultas">
         </div>
 
         <button class="btn btn-primary" type="submit">Submit</button>
