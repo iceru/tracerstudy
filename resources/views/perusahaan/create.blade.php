@@ -9,6 +9,11 @@ Perusahaan
     <h2>Input Data Perusahaan</h2>
     <hr>
 </div>
+
+<div class="back-to-data py-3">
+    <a href="{{ route('perusahaan.index' )}}"><i class="fas fa-arrow-left    "></i> Back to Data</a>
+</div>
+
 <div class="input-form">
     <form action="{{ route('perusahaan.store') }}" method="post">
         @csrf
@@ -19,7 +24,13 @@ Perusahaan
 
         <div class="form-group">
             <label for="alamat">Alamat Perusahaan</label>
-            <input type="text" class="form-control" name="alamat_perusahaan" id="alamat_perusahaan">
+            <input type="text" id="address-input" name="alamat_perusahaan" class="form-control map-input">
+            <input type="hidden" name="latitude" id="address-latitude" value="-6.2295712" />
+            <input type="hidden" name="longitude" id="address-longitude" value="106.7594779" />
+        </div>
+
+        <div id="address-map-container" style="width:100%;height:400px; ">
+            <div style="width: 100%; height: 100%" id="address-map"></div>
         </div>
 
         <div class="form-group">
@@ -30,7 +41,7 @@ Perusahaan
         <div class="form-group">
             <label for="">Sektor Perusahaan</label>
             <select class="form-control" name="id_sektor" id="id_sektor">
-                @foreach ($sektor as $sektor)
+                @foreach ($sektor as $key => $sektor)
                 <option value="{{ $sektor->id }}">{{ $sektor->nama_sektor }}</option>
                 @endforeach
             </select>
@@ -39,40 +50,10 @@ Perusahaan
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
-
-<div class="output-data">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>ID Perusahaan</th>
-                <th>Nama Perusahaan</th>
-                <th>Alamat Perusahaan</th>
-                <th>Kontak Perusahaan</th>
-                <th>Sektor Perusahaan</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($perusahaan as $item)
-            <tr>
-                <td scope="row">{{ $loop->iteration }}</td>
-                <td>{{ $item->id }}</td>
-                <td>{{ $item->nama_perusahaan }}</td>
-                <td>{{ $item->alamat_perusahaan }}</td>
-                <td>{{ $item->kontak_perusahaan }}</td>
-                <td>{{ $item->sektor->nama_sektor }}</td>
-                <td id="action">
-                    <a href="{{ route('perusahaan.edit', $item->id) }}">Edit </a>
-                    <form action="{{ route('perusahaan.destroy', $item->id )}}" method="get">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn" type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div
 @endsection
+
+@section('js')
+    @parent
+    <script src="/js/mapInput.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCo9D3Po2G2-v6glNuomZixg_TOnkaBT4U&libraries=places&callback=initialize" async defer></script>
+@stop

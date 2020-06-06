@@ -37057,9 +37057,8 @@ module.exports = function(module) {
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-window.$ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-window.JQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-
+// window.$ = require("jquery");
+// window.JQuery = require("jquery");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 /***/ }),

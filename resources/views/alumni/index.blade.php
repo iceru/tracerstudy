@@ -6,51 +6,12 @@ Opsi
 
 @section('content')
 <div class="input-title">
-    <h2>Input Data Alumni</h2>
+    <h2>Data Alumni</h2>
     <hr>
 </div>
-<div class="input-form">
-    <form action="{{ route('alumni.storeadmin') }}" method="post">
-        @csrf
-        <div class="form-group">
-            <label for="nama">Nomor Induk Mahasiswa</label>
-            <select class="form-control" name="NIM" id="NIM">
-                @foreach ($mahasiswa as $item)
-                    <option value="{{ $item->NIM }}">{{ $item->NIM }} - {{ $item->nama_mhs }}</option>
-                @endforeach
-            </select>
-        </div>
 
-        <div class="form-group">
-            <label for="">Email</label>
-            <input type="email" class="form-control" name="email" id="email" aria-describedby="helpId" >
-        </div>
-
-        <div class="form-group">
-            <label for="">Nomor Handphone</label>
-            <input type="email" class="form-control" name="no_hp" id="no_hp" aria-describedby="helpId" >
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-
-    <hr>
-    <h3>Import / Export Data Using Excel</h1>
-    <form action="{{ route('alumni.import') }}" method="post" enctype="multipart/form-data">
-        @csrf
-        <div class="form-group">
-          <label for="">Import Excel Data</label>
-          <input type="file" class="form-control-file" name="file" aria-describedby="fileHelpId">
-          <small id="fileHelpId" class="form-text text-muted">Upload File xls/xlsx</small>
-        </div>
-
-        <div class="form-group">
-        <button type="submit" class="btn btn-primary">Import Data Alumni</button>
-        <a href="{{ route('alumni.export') }}" class="btn btn-warning">Export Data Alumni</a>
-        </div>
-
-    </form>
-
+<div class="button-create">
+    <a href="{{ route('alumni.input') }}" class="button-red">Create Data Alumni</a>
 </div>
 
 <div class="output-data">
@@ -76,11 +37,11 @@ Opsi
                 <td>{{ $alumni->no_hp}}</td>
                 <td>{{ $alumni->email}}</td>
                 <td id="action">
-                    <a href="{{ route('alumni.edit', $alumni->id) }}">Edit </a>
+                    <a href="{{ route('alumni.edit', $alumni->id) }}"><i class="fas fa-edit    "></i>  Edit </a>
                     <form action="{{ route('alumni.destroy', $alumni->id )}}" method="get">
                         @csrf
                         @method('DELETE')
-                        <button class="btn" type="submit">Delete</button>
+                        <button class="btn" type="submit"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
                     </form>
                 </td>
             </tr>

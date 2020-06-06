@@ -25,8 +25,9 @@ class PertanyaanController extends Controller
      */
     public function create()
     {
+        $jenis = ['multiple-choice', 'multiple-answer', 'direct-answer'];
         $pertanyaan = Pertanyaan::all();
-        return view('kuesioner.pertanyaan.create', compact('pertanyaan'));
+        return view('kuesioner.pertanyaan.create', compact('pertanyaan', 'jenis'));
     }
 
     /**
@@ -65,8 +66,9 @@ class PertanyaanController extends Controller
      */
     public function edit($id)
     {
+        $jenis = ['multiple-choice', 'multiple-answer', 'direct-answer'];
         $pertanyaan = Pertanyaan::where('id', $id)->firstOrFail();
-        return view ('kuesioner.pertanyaan.edit', ['pertanyaan'=> $pertanyaan ]);
+        return view ('kuesioner.pertanyaan.edit', ['pertanyaan'=> $pertanyaan ], compact('jenis'));
     }
 
     /**

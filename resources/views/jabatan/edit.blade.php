@@ -9,6 +9,11 @@
     <h2>Update Data Jabatan</h2>
     <hr>
 </div>
+
+<div class="back-to-data py-3">
+    <a href="{{ route('jabatan.index' )}}"><i class="fas fa-arrow-left    "></i> Back to Data</a>
+</div>
+
 <div class="input-form">
     <form action="{{ route('jabatan.update', $jabatan->id) }}" method="post">
         @csrf

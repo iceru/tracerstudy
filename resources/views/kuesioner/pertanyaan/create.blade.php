@@ -20,9 +20,9 @@ Pertanyaan
         <div class="form-group">
             <label for="jenis_pertanyaan">Jenis Pertanyaan</label>
              <select class="form-control" name="jenis_pertanyaan" id="jenis_pertanyaan">
-               <option value="multiple-choice">Multiple Choice</option>
-               <option value="multiple-answer">Multiple Answer</option>
-               <option value="direct-answer">Direct Answer</option>
+                 @foreach ($jenis as $jenis)
+                 <option value="{{ $jenis }}">{!! ucwords(str_replace('-', ' ', $jenis )) !!}</option>
+                 @endforeach
              </select>
         </div>
 
@@ -37,6 +37,7 @@ Pertanyaan
                 <th>No</th>
                 <th>ID Pertanyaan</th>
                 <th>Nama Pertanyaan</th>
+                <th>Jenis Pertanyaan-</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -46,12 +47,13 @@ Pertanyaan
                 <td scope="row">{{ $loop->iteration }}</td>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->nama_pertanyaan }}</td>
+                <td>{!! ucwords(str_replace('-', ' ', $item->jenis_pertanyaan )) !!}</td>
                 <td id="action">
-                    <a href="{{ route('pertanyaan.edit', $item->id) }}">Edit </a>
+                    <a href="{{ route('pertanyaan.edit', $item->id) }}"><i class="fas fa-edit    "></i> Edit </a>
                     <form action="{{ route('pertanyaan.destroy', $item->id )}}" method="get">
                         @csrf
                         @method('DELETE')
-                        <button class="btn" type="submit">Delete</button>
+                        <button class="btn" type="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                     </form>
                 </td>
             </tr>

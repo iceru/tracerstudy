@@ -10884,12 +10884,11 @@ a.text-dark:focus {
 
 .content {
   width: 75%;
-  padding: 30px;
+  padding: 50px 100px;
 }
 
 #sidebar {
   width: 15%;
-  margin-right: 30px;
   min-height: 100vh;
   background: #F7F7F7;
   color: #858585;
@@ -10902,11 +10901,40 @@ a.text-dark:focus {
 
 #sidebar .sidebar-header {
   padding: 20px;
-  background: #F7F7F7;
+  background: #f0f0f0;
+}
+
+#sidebar .sidebar-header img {
+  width: 200px;
+}
+
+#sidebar .sidebar-admin {
+  margin: 20px;
+  vertical-align: middle;
+  color: #922626;
+}
+
+#sidebar .sidebar-admin img {
+  width: 60px;
+  height: 60px;
+}
+
+#sidebar .sidebar-admin h4 {
+  padding: 5px 0px;
+  margin: 0;
+  font-size: 1.2em;
+}
+
+#sidebar .sidebar-admin p {
+  padding: 0px !important;
+  font-size: 1em;
+  font-weight: 300;
+  margin-bottom: 0;
 }
 
 #sidebar ul.components {
   padding: 20px 0;
+  padding-top: 0;
 }
 
 #sidebar ul.components .small {
@@ -10915,14 +10943,6 @@ a.text-dark:focus {
   padding: 0 20px;
   margin-top: 5px;
   margin-bottom: 20px;
-}
-
-#sidebar ul p {
-  color: #3A3A3A;
-  padding: 0 20px;
-  font-size: 1.1em;
-  font-weight: 600;
-  margin-bottom: 0;
 }
 
 #sidebar ul li a {
@@ -10958,8 +10978,155 @@ a.text-dark:focus {
   transition: all 0.3s;
 }
 
+#sidebar .blue {
+  background-color: #5185d3;
+  color: white;
+}
+
+#sidebar .blue:hover {
+  color: white;
+  background-color: #7aa0da;
+}
+
+#sidebar .blue[aria-expanded=true] {
+  color: white;
+  background-color: #7aa0da;
+}
+
+#sidebar .red {
+  background-color: #ee6969;
+  color: white;
+}
+
+#sidebar .red:hover {
+  background-color: #ee8d8d;
+  color: white;
+}
+
 nav .navbar-brand img {
   width: 200px;
+}
+
+.login {
+  padding: 100px 0 !important;
+  background-image: linear-gradient(109.6deg, #dfeaf7 11.2%, #f4f8fc 91.1%);
+  height: 100vh;
+  overflow: hidden;
+}
+
+.login .form-control {
+  background-color: #dddddd;
+  transition: 0.2s ease-out;
+}
+
+.login .form-control:focus,
+.login .form-control:active,
+.login .form-control:hover {
+  background-color: #e6e6e6;
+  box-shadow: none;
+  border: #e6e6e6;
+  transition: 0.2s ease-in;
+}
+
+.login .card {
+  box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.4);
+}
+
+.login .card-body {
+  color: #7a7a7a;
+  padding: 50px !important;
+}
+
+.login .card-body h4 {
+  margin-bottom: 30px;
+  font-size: 30px;
+}
+
+.login .card-body .btn-link {
+  color: #b82b2b;
+}
+
+.data-percentage {
+  background-color: #45a145;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin: 0 !important;
+}
+
+label {
+  height: 100%;
+  margin: 0 !important;
+}
+
+label p {
+  margin: 0 !important;
+}
+
+.graph {
+  display: flex;
+  justify-content: center;
+  margin: 30px 18px;
+  vertical-align: middle;
+}
+
+.graph h4 {
+  margin: 0 !important;
+}
+
+.graph a {
+  color: black;
+}
+
+.graph .graphleft {
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin-right: 20px;
+  width: 50%;
+}
+
+.graph .graphright {
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin-left: 20px;
+  width: 50%;
+}
+
+.thankyou {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  vertical-align: middle;
+  height: 80vh;
+}
+
+.thankyou h3 {
+  margin: 20px auto;
+}
+
+.thankyou a {
+  margin: 0px auto;
+  font-size: 1.4em;
+  color: #ee6969;
+}
+
+.edit-delete {
+  display: flex;
+  vertical-align: middle;
+}
+
+.edit-delete a {
+  display: inline;
+}
+
+.chartJabatan h3 {
+  margin-top: 20px;
+}
+
+.chartJabatan table {
+  margin-top: 10px;
 }
 
 .output-data {

@@ -16,7 +16,9 @@ class PerusahaanController extends Controller
      */
     public function index()
     {
-
+        $perusahaan = Perusahaan::paginate(10);
+        $sektor = Sektor::all();
+        return view('perusahaan.index', compact('perusahaan', 'sektor'));
     }
 
     /**
@@ -26,9 +28,8 @@ class PerusahaanController extends Controller
      */
     public function create()
     {
-        $perusahaan = Perusahaan::paginate(10);
         $sektor = Sektor::all();
-        return view('perusahaan.create', compact('perusahaan', 'sektor'));
+        return view('perusahaan.create', compact('sektor'));
     }
 
     /**
@@ -43,6 +44,8 @@ class PerusahaanController extends Controller
             'id' => $id = IdGenerator::generate(['table' => 'perusahaan', 'length' => 6, 'prefix' =>'P-']),
             'nama_perusahaan' => $request->nama_perusahaan,
             'alamat_perusahaan' => $request->alamat_perusahaan,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
             'kontak_perusahaan' => $request->kontak_perusahaan,
             'id_sektor' => $request->id_sektor,
         ]);
@@ -106,6 +109,8 @@ class PerusahaanController extends Controller
         $perusahaan = Perusahaan::where('id', $id)->update([
             'nama_perusahaan' => $request->nama_perusahaan,
             'alamat_perusahaan' => $request->alamat_perusahaan,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
             'kontak_perusahaan' => $request->kontak_perusahaan,
             'id_sektor' => $request->id_sektor,
         ]);

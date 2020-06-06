@@ -9,6 +9,11 @@
     <h2>Update Data Program Studi</h2>
     <hr>
 </div>
+
+<div class="back-to-data py-3">
+    <a href="{{ route('prodi.index' )}}"><i class="fas fa-arrow-left    "></i> Back to Data</a>
+</div>
+
 <div class="input-form">
     <form action="{{ route('prodi.update', $prodi->id) }}" method="post">
         @csrf
@@ -27,7 +32,7 @@
             <label for="">Fakultas</label>
             <select class="form-control" name="id_fakultas" id="id_fakultas">
                 @foreach ($fakultas as $fakultas)
-                <option value="{{ $fakultas->id }}"> {{ $fakultas->nama_fakultas }}</option>
+                <option value="{{ $fakultas->id }}" {!! old('nama_fakultas', $prodi->fakultas->id) == $fakultas->id ? 'selected="selected"' : '' !!}> {{ $fakultas->nama_fakultas }}</option>
                 @endforeach
             </select>
           </div>

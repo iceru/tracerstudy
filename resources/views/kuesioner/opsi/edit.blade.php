@@ -27,7 +27,7 @@
             <label for="id_pertanyaan">Pertanyaan</label>
             <select class="form-control" name="id_pertanyaan" id="id_pertanyaan">
                 @foreach ($pertanyaan as $pertanyaan)
-                <option value="{{ $pertanyaan->id }}"> {{ $pertanyaan->nama_pertanyaan }}</option>
+                <option value="{{ $pertanyaan->id }}" {!! old('nama_pertanyaan', $opsi->pertanyaan->id) == $pertanyaan->id ? 'selected="selected"' : '' !!}> {{ $pertanyaan->nama_pertanyaan }}</option>
                 @endforeach
             </select>
           </div>

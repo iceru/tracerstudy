@@ -27,6 +27,11 @@ Mahasiswa
     <h2>Input Data Mahasiswa</h2>
     <hr>
 </div>
+
+<div class="back-to-data py-3">
+    <a href="{{ route('mahasiswa.index' )}}"><i class="fas fa-arrow-left"></i> Back to Data</a>
+</div>
+
 <div class="input-form">
     <form action="{{ route('mahasiswa.store')}}" method="post">
         @csrf
@@ -42,8 +47,7 @@ Mahasiswa
 
         <div class="form-group row">
             <label for="tgl_yudisium" class="col-md-2">Tanggal Yudisium</label>
-            <input type="text" class="form-control col-md-6 " name="tgl_yudisium" id="datepicker" aria-describedby="helpId"
-                >
+            <input type="text" class="form-control col-md-6 " name="tgl_yudisium" id="datepicker">
         </div>
 
         <div class="form-group row">
@@ -80,43 +84,16 @@ Mahasiswa
 
     </form>
 
-    <div class="output-data">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>NIM</th>
-                    <th>Nama Mahasiswa</th>
-                    <th>Tanggal Yudisium</th>
-                    <th>IPK</th>
-                    <th>Program Studi</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($mahasiswa as $item)
-                <tr>
-                    <td scope="row">{{ $loop->iteration }}</td>
-                    <td>{{ $item->NIM }}</td>
-                    <td>{{ $item->nama_mhs }}</td>
-                    <td>{{ $item->tgl_yudisium }}</td>
-                    <td>{{ $item->ipk }}</td>
-                    <td>{{ $item->prodi->nama_prodi }}</td>
-                    <td id="action">
-                        <a href="{{ route('mahasiswa.edit', $item->NIM) }}">Edit </a>
-                        <form action="{{ route('mahasiswa.destroy', $item->NIM )}}" method="get">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn" type="submit">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div
 </div>
 @endsection
 
 @section('js')
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+  $( "#datepicker" ).datepicker();
+} );
+</script>
 @endsection

@@ -9,6 +9,9 @@
     <h2>Update Data Sektor</h2>
     <hr>
 </div>
+<div class="back-to-data">
+    <a href="{{ route('sektor.index' )}}"><i class="fas fa-arrow-left    "></i> Back to Data</a>
+</div>
 <div class="input-form">
     <form action="{{ route('sektor.update', $sektor->id) }}" method="post">
         @csrf

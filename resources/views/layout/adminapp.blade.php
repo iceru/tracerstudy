@@ -10,7 +10,8 @@
     </title>
     <script src="{{ mix('js/app.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/js/all.min.js" integrity="sha256-+Q/z/qVOexByW1Wpv81lTLvntnZQVYppIL1lBdhtIq0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha256-8zyeSXm+yTvzUN1VgAOinFgaVFEFTyYzWShOy9w7WoQ=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -18,20 +19,27 @@
         <div class="wrapper">
             <nav class="sidebar" id="sidebar">
                 <div class="sidebar-header">
-                    <h3>Tracer Study</h3>
+                    <img src="/image/untar.png" alt="">
+                </div>
+                <div class="sidebar-admin d-flex">
+                    {{-- <div class="image">
+                        <img src="/image/default.png" class="rounded-circle" alt="">
+                    </div> --}}
+                    <div class="name">
+                        <h4>Hello, {{ Auth::user()->name }}</h4>
+                        <p class="small"> {!! str_replace(str_split('[""]'), '', Auth::user()->getRoleNames() ) !!}</p>
+                    </div>
                 </div>
 
                 <ul class="list-unstyled components">
-                    <p>Hello, Admin</p>
-                    <p class="small">Administrator</p>
                     <li>
-                        <a href="{{ route('fakultas.create') }}"><i class="fas fa-headphones"></i> Fakultas</a>
+                        <a href="{{ route('fakultas.index') }}">Fakultas</a>
                     </li>
                     <li>
-                        <a href="{{ route('prodi.create') }}">Program Studi</a>
+                        <a href="{{ route('prodi.index') }}">Program Studi</a>
                     </li>
                     <li>
-                        <a href="{{ route('mahasiswa.create') }}">Mahasiswa</a>
+                        <a href="{{ route('mahasiswa.index') }}">Mahasiswa</a>
                     </li>
 
 
@@ -41,13 +49,13 @@
                             class="dropdown-toggle">Data Alumni</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu3">
                             <li>
-                                <a href="{{ route('sektor.create') }}">Sektor Perusahaan</a>
+                                <a href="{{ route('sektor.index') }}">Sektor Perusahaan</a>
                             </li>
                             <li>
-                                <a href="{{ route('perusahaan.create') }}">Perusahaan</a>
+                                <a href="{{ route('perusahaan.index') }}">Perusahaan</a>
                             </li>
                             <li>
-                                <a href="{{ route('jabatan.create') }}">Jabatan</a>
+                                <a href="{{ route('jabatan.index') }}">Jabatan</a>
                             </li>
                             <li>
                                 <a href="{{ route('alumni.index') }}">Alumni</a>
@@ -74,21 +82,58 @@
                             class="dropdown-toggle">Laporan</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu2">
                             <li>
-                                <a href="#">Laporan 1</a>
+                                <a href="{{ route('jarak.haversine') }}">Laporan Jarak QS Stars</a>
                             </li>
                             <li>
-                                <a href="#">Laporan 2</a>
+                                <a href="{{ route('kuesioner.hasil') }}">Hasil Kuesioner</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('laporan.jabatan') }}">Jabatan dan Perusahaan Alumni</a>
                             </li>
                         </ul>
                     </li>
+
+                    @can ('role-edit')
+                    <li>
+                        <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle blue">Users & Roles</a>
+                        <ul class="collapse list-unstyled" id="pageSubmenu4">
+                            <li>
+                                <a href="{{ route('users.index') }}">Users</a>
+                            </li>
+                            @can('role-create')
+                            <li>
+                                <a href="{{ route('roles.index') }}">Roles</a>
+                            </li>
+                            @endcan
+                        </ul>
+                    </li>
+                    @endcan
+
+                    @cannot ('role-edit')
+                    <li>
+                        <a class="blue" href="{{ route('users.index') }}">Users</a>
+                    </li>
+                    @endcannot
+
+                    <li>
+                        <a class="red" href="{{ route('logout') }}"  onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                         {{ __('Logout') }}</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </li>
                 </ul>
+
+
             </nav>
             <div class="content">
-                @yield('content')
+                <div class="main">
+                    @yield('content')
+                </div>
             </div>
         </div>
-
-
     </main>
     @yield ('js')
 </body>

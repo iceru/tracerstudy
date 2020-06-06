@@ -15,7 +15,8 @@ class JabatanController extends Controller
      */
     public function index()
     {
-
+        $jabatan = Jabatan::paginate(10);
+        return view('jabatan.index', compact('jabatan'));
     }
 
     /**
@@ -25,8 +26,7 @@ class JabatanController extends Controller
      */
     public function create()
     {
-        $jabatan = Jabatan::paginate(10);
-        return view('jabatan.create', compact('jabatan'));
+        return view('jabatan.create');
     }
 
     /**

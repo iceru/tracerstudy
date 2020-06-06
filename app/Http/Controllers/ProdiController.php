@@ -16,7 +16,10 @@ class ProdiController extends Controller
      */
     public function index()
     {
+        $prodi = Prodi::paginate(15);
+        $fakultas = Fakultas::all();
 
+        return view('prodi.index', compact('prodi', 'fakultas'));
     }
 
     /**
@@ -26,7 +29,7 @@ class ProdiController extends Controller
      */
     public function create()
     {
-        $prodi = Prodi::paginate(10);
+        $prodi = Prodi::paginate(8);
         $fakultas = Fakultas::all();
 
         return view('prodi.create', compact('prodi', 'fakultas'));

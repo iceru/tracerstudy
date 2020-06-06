@@ -23,7 +23,7 @@ class HistoryPekerjaanController extends Controller
         $perusahaan = Perusahaan::all();
         $sektor = Sektor::all();
         $alumni = Alumni::where('id', $id)->firstOrFail();
-        return view('pekerjaan-alumni', compact('jabatan', 'perusahaan', 'alumni', 'sekto'));
+        return view('pekerjaan-alumni', compact('jabatan', 'perusahaan', 'alumni', 'sektor'));
     }
 
     /**

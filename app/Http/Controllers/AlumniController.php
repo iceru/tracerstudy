@@ -15,17 +15,26 @@ use App\Imports\AlumniImport;
 
 class AlumniController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $alumnis = Alumni::paginate(10);
         $mahasiswa = Mahasiswa::all();
         return view ('alumni.index', compact('alumnis', 'mahasiswa'));
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function input()
+    {
+        $mahasiswa = Mahasiswa::all();
+        $prodi = Prodi::all();
+        return view ('alumni.input', compact('mahasiswa', 'prodi'));
+    }
+
+
 
     /**
      * Show the form for creating a new resource.

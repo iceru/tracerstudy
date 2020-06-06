@@ -6,7 +6,7 @@
         <h1>Tracer Study Universitas Tarumanagara</h1>
     </div>
     <div class="alumni-left">
-        <form action="store/{id}" method="post">
+        <form action="/tracer-study/pekerjaan/store/{id}" method="post">
             @csrf
             <input type="text" class="form-control" name="id_alumni" value="{{ request()->route('id')}}" hidden>
 
@@ -116,7 +116,7 @@
 
     <div class="alumni-right">
         <h4>Selamat Datang di Laman Tracer Study Universitas Tarumanagara</h3>
-        <p>Terima kasih sudah mengunjungi laman ini dan turut berpartisipasi dalam melakukan pengisian data anda.</p>
+        <p>Tracer Study adalah Fasilitas untuk menjaring informasi atau masukkan dari Alumni Universitas Tarumanagara sebagai salah satu dasar yang sangat penting bagi evaluasi dan pengembangan Universitas Tarumanagara. Adapun data yang Anda berikan bersifat rahasia dan hanya akan dipergunakan untuk pengembangan Universitas Tarumanagara.</p>
     </div>
 </div>
 

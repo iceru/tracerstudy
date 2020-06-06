@@ -9,6 +9,11 @@
     <h2>Update Data Fakultas</h2>
     <hr>
 </div>
+
+<div class="back-to-data py-3">
+    <a href="{{ route('fakultas.index')}}"><i class="fas fa-arrow-left"></i> Back to Data</a>
+</div>
+
 <div class="input-form">
     <form action="{{ route('fakultas.update', $fakultas->id) }}" method="post">
         @csrf

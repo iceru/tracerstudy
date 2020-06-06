@@ -5,24 +5,33 @@ Pertanyaan
 @endsection
 
 @section('content')
-<div class="input-title">
+<div class="input-title col-md-10">
     <h2>Data Kuesioner</h2>
     <hr>
 </div>
-<div class="input-form">
+<div class="input-form col-md-10">
     @foreach ($pertanyaan as $key => $item)
     <div class="card my-3">
-        <div class="card-header">
-            <label for="">{{ $key + 1 }}. {{ $item->nama_pertanyaan }} (  <a href="{{ route('pertanyaan.edit', $item->id) }}"> Edit </a>)</label>
+        <div class="card-header d-flex justify-content-between">
+            <label for="">{{ $key + 1 }}. {{ $item->nama_pertanyaan }} </label>
+            <a href="{{ route('pertanyaan.edit', $item->id) }}"> <i class="fas fa-edit    "></i> Edit </a>
         </div>
         <div class="card-body">
-
             <ul class="list-group">
                 @foreach ($item->opsi as $opsi)
-                <li class="list-group-item">
+                <li class="list-group-item d-flex justify-content-between">
                     <label for="opsi{{ $opsi->id }}">
-                    {{ $opsi->nama_opsi }} ( <a href="{{ route('opsi.edit', $opsi->id) }}">Edit </a>)
+                    {{ $opsi->nama_opsi }}
                     </label>
+                    <div id="action">
+                        <a href="{{ route('opsi.edit', $opsi->id) }}"><i class="fas fa-edit    "></i> Edit </a>
+                        <form action="{{ route('opsi.destroy', $opsi->id )}}" method="get">
+                           @csrf
+                           @method('DELETE')
+                           <button class="btn" type="submit"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
+                       </form>
+                    </div>
+
                 </li>
                 @endforeach
 

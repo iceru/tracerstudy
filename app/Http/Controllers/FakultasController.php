@@ -15,7 +15,8 @@ class FakultasController extends Controller
      */
     public function index()
     {
-
+        $fakultas = Fakultas::paginate(10);
+        return view('fakultas.index', compact('fakultas'));
     }
 
     /**
@@ -25,9 +26,7 @@ class FakultasController extends Controller
      */
     public function create()
     {
-        $fakultas = Fakultas::paginate(10);
-
-        return view('fakultas.create', compact('fakultas'));
+        return view('fakultas.create');
     }
 
     /**

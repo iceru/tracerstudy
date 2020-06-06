@@ -18,7 +18,8 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-
+        $mahasiswa = Mahasiswa::paginate(20);
+        return view('mahasiswa.index', compact('mahasiswa'));
     }
 
     /**

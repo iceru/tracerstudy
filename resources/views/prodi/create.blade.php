@@ -9,6 +9,11 @@ Program Studi
     <h2>Input Data Program Studi</h2>
     <hr>
 </div>
+
+<div class="back-to-data py-3">
+    <a href="{{ route('prodi.index' )}}"><i class="fas fa-arrow-left    "></i> Back to Data</a>
+</div>
+
 <div class="input-form">
     <form action="{{ route('prodi.store') }}" method="post">
         @csrf
@@ -30,39 +35,5 @@ Program Studi
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-</div>
-
-
-<div class="output-data">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>ID Prodi</th>
-                <th>Nama Prodi</th>
-                <th>Fakultas</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($prodi as $item)
-            <tr>
-                <td scope="row">{{ ($prodi ->currentpage()-1) * $prodi ->perpage() + $loop->index + 1 }}</td>
-                <td>{{ $item->id }}</td>
-                <td>{{ $item->nama_prodi }}</td>
-                <td>{{ $item->fakultas->nama_fakultas }}</td>
-                <td id="action">
-                    <a href="{{ route('prodi.edit', $item->id) }}">Edit </a>
-                    <form action="{{ route('prodi.destroy', $item->id )}}" method="get">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn" type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    {{ $prodi->links() }}
 </div>
 @endsection

@@ -26,9 +26,9 @@
         <div class="form-group">
             <label for="jenis_pertanyaan">Jenis Pertanyaan</label>
              <select class="form-control" name="jenis_pertanyaan" id="jenis_pertanyaan">
-               <option value="multiple-choice">Multiple Choice</option>
-               <option value="multiple-answer">Multiple Answer</option>
-               <option value="direct-answer">Direct Answer</option>
+               <option value="multiple-choice" @if (old('jenis_pertanyaan') == "multiple-choice") {!! 'selected' !!} @endif>Multiple Choice</option>
+               <option value="multiple-answer" @if (old('jenis_pertanyaan') == "multiple-answer") {!! 'selected' !!} @endif>Multiple Answer</option>
+               <option value="direct-answer" @if (old('jenis_pertanyaan') == "direct-answer") {!! 'selected' !!} @endif>Direct Answer</option>
              </select>
         </div>
         <button class="btn btn-warning" type="submit">Update</button>

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Prodi;
+use App\Alumni;
 
 class Mahasiswa extends Model
 {
@@ -17,4 +18,8 @@ class Mahasiswa extends Model
         return $this->belongsTo(Prodi::class, 'id_prodi');
     }
 
+    public function alumni()
+    {
+        return $this->hasOne(Alumni::class);
+    }
 }

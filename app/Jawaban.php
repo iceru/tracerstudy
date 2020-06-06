@@ -13,14 +13,14 @@ class Jawaban extends Model
 
     public function alumni()
     {
-        return $this->belongsTo(Alumni::class, 'id_alumni');
+        return $this->belongsTo(Alumni::class, 'id_alumni', 'id_alumni');
     }
 
     public function pertanyaan() {
-        return $this->belongsTo(Pertanyaan::class, 'id_pertanyaan');
+        return $this->belongsTo(Pertanyaan::class, 'id_pertanyaan', 'id_pertanyaan');
     }
 
     public function opsi() {
-        return $this->belongsTo(Opsi::class, 'id_opsi');
+        return $this->belongsTo(Opsi::class, 'id_opsi', 'id_opsi');
     }
 }

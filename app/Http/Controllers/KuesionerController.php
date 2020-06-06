@@ -38,17 +38,17 @@ class KuesionerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id) {
-    // {
-    //    $data = request()->validate([
-    //        'responses.*.opsi_id' => 'required',
-    //        'responses.*.question_id' => 'required',
-    //    ]);
+    public function store(Request $request) {
 
-        // $jawaban = new Jawaban;
-        // $jawaban['id_alumni'] = $request->id_alumni;
-        // $jawaban['id_pertanyaan'] = $request->'responses.*.question_id';
+        $data = request()->validate([
+            'responses.*.id_opsi' => 'required',
+            'responses.*.id_pertanyaan' => 'required',
+            'responses.*.id_alumni' => 'required'
+        ]);
 
+        $jawaban = Jawaban::insert($data['responses']);
+
+        return view('thankyou')->withHeaders(['refresh' => '3;url=https://www.untar.ac.id']);;
     }
 
     /**
@@ -96,5 +96,11 @@ class KuesionerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function hasil()
+    {
+        $pertanyaan = Pertanyaan::all();
+        return view('laporan.hasilkuesioner', compact('pertanyaan'));
     }
 }

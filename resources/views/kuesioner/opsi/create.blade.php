@@ -50,11 +50,11 @@ Opsi
                 <td>{{ $opsi->nama_opsi }}</td>
                 <td>{{ $opsi->pertanyaan->nama_pertanyaan }}</td>
                 <td id="action">
-                    <a href="{{ route('opsi.edit', $opsi->id) }}">Edit </a>
+                    <a href="{{ route('opsi.edit', $opsi->id) }}"><i class="fas fa-edit    "></i>  Edit </a>
                     <form action="{{ route('opsi.destroy', $opsi->id )}}" method="get">
                         @csrf
                         @method('DELETE')
-                        <button class="btn" type="submit">Delete</button>
+                        <button class="btn" type="submit"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
                     </form>
                 </td>
             </tr>
