@@ -2,139 +2,128 @@
 
 namespace App\Http\Controllers;
 use DB;
-use Illuminate\Http\Request;
-use App\Perusahaan;
+use App\Prodi;
 use App\Jabatan;
+use App\Jawaban;
+use App\Fakultas;
+use App\Perusahaan;
+use Illuminate\Http\Request;
 
 class LaporanController extends Controller
 {
-    public function haversine() {
-        $sqlDistance = DB::raw('( 100 * 111.045 * acos( cos( radians(-6.1694043) )
-            * cos( radians( perusahaan.latitude ) )
-            * cos( radians( perusahaan.longitude )
-            - radians(106.7891015) )
-            + sin( radians(-6.1694043) )
-            * sin( radians( perusahaan.latitude ) ) ) )');
-
-        $alumni =  DB::table('history_pekerjaan')
-            ->join('alumni','alumni.id','history_pekerjaan.id_alumni')
-            ->join('mahasiswa', 'mahasiswa.NIM', 'alumni.NIM')
-            ->join('perusahaan', 'perusahaan.id', 'history_pekerjaan.id_perusahaan')
-            ->select('alumni.id', 'alumni.NIM', 'mahasiswa.nama_mhs', 'perusahaan.alamat_perusahaan',
-                    'perusahaan.latitude', 'perusahaan.longitude',)
-            ->selectRaw("{$sqlDistance} AS distance")
-            ->orderBy('alumni.id')
-            ->get();
-
-            return view ('laporan.jarak', compact('alumni'));
+    public function index() {
+        return view('laporan.indexLaporan');
     }
 
-    public function showJarak($id) {
-        $jarak = DB::table('history_pekerjaan')
-        ->join('alumni','alumni.id','history_pekerjaan.id_alumni')
-        ->join('mahasiswa', 'mahasiswa.NIM', 'alumni.NIM')
-        ->join('perusahaan', 'perusahaan.id', 'history_pekerjaan.id_perusahaan')
-        ->join('jabatan', 'jabatan.id', 'history_pekerjaan.id_jabatan')
-        ->select('mahasiswa.nama_mhs', 'alumni.id', 'perusahaan.alamat_perusahaan', 'perusahaan.nama_perusahaan', 'perusahaan.longitude', 'perusahaan.latitude')
-        ->where('alumni.id', $id)
+    public function indexChartBidang() {
+        $bidang = DB::table('jawaban')
+        ->join('pertanyaan','pertanyaan.id','jawaban.id_pertanyaan')
+        ->join('opsi_pertanyaan', 'opsi_pertanyaan.id', 'jawaban.id_opsi')
+        ->join('alumni', 'alumni.id', 'jawaban.id_alumni')
+        ->select(DB::raw("COUNT(opsi_pertanyaan.nama_opsi) as countBidang"), 'opsi_pertanyaan.nama_opsi', 'opsi_pertanyaan.id')
+        ->groupBy('opsi_pertanyaan.nama_opsi', 'opsi_pertanyaan.id')
+        ->where('pertanyaan.nama_pertanyaan', 'like', '%erat%')
         ->get();
 
-        return view ('laporan.detailJarak', ['jarak'=> $jarak]);
+        return view('laporan.chartBidang', compact('bidang'));
     }
 
-    public function jabatan() {
-        $jabatan = DB::table('history_pekerjaan')
-        ->join('alumni','alumni.id','history_pekerjaan.id_alumni')
+    public function showBidang ($id) {
+        $bidang = DB::table('jawaban')
+        ->join('pertanyaan','pertanyaan.id','jawaban.id_pertanyaan')
+        ->join('opsi_pertanyaan', 'opsi_pertanyaan.id', 'jawaban.id_opsi')
+        ->join('alumni', 'alumni.id', 'jawaban.id_alumni')
         ->join('mahasiswa', 'mahasiswa.NIM', 'alumni.NIM')
-        ->join('perusahaan', 'perusahaan.id', 'history_pekerjaan.id_perusahaan')
-        ->join('jabatan', 'jabatan.id', 'history_pekerjaan.id_jabatan')
-        ->select('mahasiswa.nama_mhs', 'alumni.no_hp', 'alumni.email', 'perusahaan.nama_perusahaan', 'jabatan.nama_jabatan')
+        ->select('mahasiswa.nama_mhs', 'opsi_pertanyaan.nama_opsi', 'alumni.no_hp', 'alumni.email')
+        ->where('opsi_pertanyaan.id', $id)
+        ->where('pertanyaan.nama_pertanyaan', 'like', '%erat%')
+        ->get();
+        return view ('laporan.detailBidang', ['bidang'=> $bidang]);
+    }
+
+    public function chartBidang() {
+        $bidang = DB::table('jawaban')
+        ->join('pertanyaan','pertanyaan.id','jawaban.id_pertanyaan')
+        ->join('opsi_pertanyaan', 'opsi_pertanyaan.id', 'jawaban.id_opsi')
+        ->join('alumni', 'alumni.id', 'jawaban.id_alumni')
+        ->select(DB::raw("COUNT(opsi_pertanyaan.nama_opsi) as countBidang"), 'opsi_pertanyaan.nama_opsi')
+        ->groupBy('opsi_pertanyaan.nama_opsi')
+        ->where('pertanyaan.nama_pertanyaan', 'like', '%erat%')
         ->get();
 
-        return view ('laporan.jabatan-perusahaan', compact('jabatan'));
+        return response()->json($bidang);
     }
 
-    public function indexChartJabatan() {
-        $jabatan =  DB::table('history_pekerjaan')
-        ->join('alumni','alumni.id','history_pekerjaan.id_alumni')
-        ->join('mahasiswa', 'mahasiswa.NIM', 'alumni.NIM')
-        ->join('perusahaan', 'perusahaan.id', 'history_pekerjaan.id_perusahaan')
-        ->join('jabatan', 'jabatan.id', 'history_pekerjaan.id_jabatan')
-        ->select(DB::raw("COUNT(jabatan.nama_jabatan) as countJabatan"), 'jabatan.nama_jabatan', 'jabatan.id')
-        ->groupBy('jabatan.nama_jabatan', 'jabatan.id')
+    public function indexChartWaktuPekerjaan() {
+        $waktu = DB::table('jawaban_direct_answer')
+        ->join('pertanyaan_direct_answer','pertanyaan_direct_answer.id','jawaban_direct_answer.id_pertanyaan_da')
+        ->select(DB::raw("COUNT(jawaban) as countBidang"), 'jawaban')
+        ->groupBy('jawaban')
+        ->where('pertanyaan_direct_answer.nama_pertanyaan_da', 'like', '%dihabiskan%')
         ->get();
 
-        return view('laporan.chartJabatan', compact('jabatan'));
+        return view('laporan.chartWaktuPekerjaan', compact('waktu'));
     }
 
-
-    public function showJabatan ($id) {
-        $jabatanNama = Jabatan::where('id', $id)->first();
-
-        $jabatan =  DB::table('history_pekerjaan')
-        ->join('alumni','alumni.id','history_pekerjaan.id_alumni')
-        ->join('mahasiswa', 'mahasiswa.NIM', 'alumni.NIM')
-        ->join('perusahaan', 'perusahaan.id', 'history_pekerjaan.id_perusahaan')
-        ->join('jabatan', 'jabatan.id', 'history_pekerjaan.id_jabatan')
-        ->select('jabatan.nama_jabatan', 'mahasiswa.nama_mhs', 'alumni.no_hp', 'alumni.email', 'perusahaan.nama_perusahaan')
-        ->where('jabatan.id', $id)
+    public function chartWaktuPekerjaan() {
+        $waktu = DB::table('jawaban_direct_answer')
+        ->join('pertanyaan_direct_answer','pertanyaan_direct_answer.id','jawaban_direct_answer.id_pertanyaan_da')
+        ->select(DB::raw("COUNT(jawaban) as countBidang"), 'jawaban')
+        ->groupBy('jawaban')
+        ->where('pertanyaan_direct_answer.nama_pertanyaan_da', 'like', '%dihabiskan%')
         ->get();
-        return view ('laporan.detailJabatan', ['jabatan'=> $jabatan, 'jabatanNama' => $jabatanNama ]);
+        return response()->json($waktu);
     }
 
-
-    public function chartJabatan() {
-        $jabatan =  DB::table('history_pekerjaan')
-        ->join('alumni','alumni.id','history_pekerjaan.id_alumni')
+    public function showWaktuPekerjaan ($jawaban) {
+        $waktu = DB::table('jawaban_direct_answer')
+        ->join('pertanyaan_direct_answer','pertanyaan_direct_answer.id','jawaban_direct_answer.id_pertanyaan_da')
+        ->join('alumni', 'alumni.id', 'jawaban_direct_answer.id_alumni')
         ->join('mahasiswa', 'mahasiswa.NIM', 'alumni.NIM')
-        ->join('perusahaan', 'perusahaan.id', 'history_pekerjaan.id_perusahaan')
-        ->join('jabatan', 'jabatan.id', 'history_pekerjaan.id_jabatan')
-        ->select(DB::raw("COUNT(jabatan.nama_jabatan) as countJabatan"), 'jabatan.nama_jabatan')
-        ->groupBy('jabatan.nama_jabatan')
+        ->select('mahasiswa.nama_mhs','jawaban', 'alumni.no_hp', 'alumni.email')
+        ->where('jawaban', $jawaban)
+        ->where('pertanyaan_direct_answer.nama_pertanyaan_da', 'like', '%dihabiskan%')
         ->get();
-
-        return response()->json($jabatan);
-
+        return view ('laporan.detailWaktuPekerjaan', ['waktu'=> $waktu]);
     }
 
-    public function indexChartPerusahaan() {
-        $perusahaan =  DB::table('history_pekerjaan')
-        ->join('alumni','alumni.id','history_pekerjaan.id_alumni')
-        ->join('mahasiswa', 'mahasiswa.NIM', 'alumni.NIM')
-        ->join('perusahaan', 'perusahaan.id', 'history_pekerjaan.id_perusahaan')
-        ->join('jabatan', 'jabatan.id', 'history_pekerjaan.id_jabatan')
-        ->select(DB::raw("COUNT(perusahaan.nama_perusahaan) as countPerusahaan"), 'perusahaan.nama_perusahaan', 'perusahaan.alamat_perusahaan', 'perusahaan.id')
-        ->groupBy('perusahaan.nama_perusahaan', 'perusahaan.alamat_perusahaan', 'perusahaan.id')
+
+
+    public function tahunKelulusan() {
+
+        $tahunLulus = DB::table('alumni')
+        ->join('mahasiswa','mahasiswa.NIM','alumni.NIM')
+        ->join('program_studi', 'program_studi.id', 'mahasiswa.id_prodi')
+        ->select(DB::raw("YEAR(tgl_yudisium) - (2000 + substr(mahasiswa.NIM, 4, 2)) AS tahunKelulusan, COUNT(YEAR(tgl_yudisium) - (2000 + substr(mahasiswa.NIM, 4, 2))) AS hitungKelulusan"))
+        ->groupBy(DB::raw("YEAR(tgl_yudisium) - (2000 + substr(mahasiswa.NIM, 4, 2))"))
         ->get();
 
-        return view('laporan.chartPerusahaan', compact('perusahaan'));
+        return view('laporan.tahunKelulusan', compact('tahunLulus'));
     }
 
-    public function showPerusahaan ($id) {
-        $perusahaanNama = Perusahaan::where('id', $id)->first();
-        $perusahaan =  DB::table('history_pekerjaan')
-        ->join('alumni','alumni.id','history_pekerjaan.id_alumni')
-        ->join('mahasiswa', 'mahasiswa.NIM', 'alumni.NIM')
-        ->join('perusahaan', 'perusahaan.id', 'history_pekerjaan.id_perusahaan')
-        ->join('jabatan', 'jabatan.id', 'history_pekerjaan.id_jabatan')
-        ->select('perusahaan.nama_perusahaan', 'perusahaan.alamat_perusahaan', 'mahasiswa.nama_mhs', 'alumni.no_hp', 'alumni.email')
-        ->where('perusahaan.id', $id)
-        ->get();
-        return view ('laporan.detailPerusahaan', ['perusahaan'=> $perusahaan, 'perusahaanNama' => $perusahaanNama ]);
-    }
-
-    public function chartPerusahaan() {
-        $perusahaan =  DB::table('history_pekerjaan')
-        ->join('alumni','alumni.id','history_pekerjaan.id_alumni')
-        ->join('mahasiswa', 'mahasiswa.NIM', 'alumni.NIM')
-        ->join('perusahaan', 'perusahaan.id', 'history_pekerjaan.id_perusahaan')
-        ->join('jabatan', 'jabatan.id', 'history_pekerjaan.id_jabatan')
-        ->select(DB::raw("COUNT(perusahaan.nama_perusahaan) as countPerusahaan"), 'perusahaan.nama_perusahaan')
-        ->groupBy('perusahaan.nama_perusahaan')
+    public function detailKelulusan($lulusan) {
+        $tahunLulus = DB::table('alumni')
+        ->join('mahasiswa','mahasiswa.NIM','alumni.NIM')
+        ->join('program_studi', 'program_studi.id', 'mahasiswa.id_prodi')
+        ->select(DB::raw("YEAR(tgl_yudisium) - (2000 + substr(mahasiswa.NIM, 4, 2)) AS tahunKelulusan"), 'mahasiswa.nama_mhs', 'program_studi.nama_prodi')
+        ->where(DB::raw("YEAR(tgl_yudisium) - (2000 + substr(mahasiswa.NIM, 4, 2))"), $lulusan)
         ->get();
 
-        return response()->json($perusahaan);
-
+        return view ('laporan.detailKelulusan', compact('tahunLulus'));
     }
+
+    public function kepuasanAlumni() {
+        $bidang = DB::table('jawaban')
+        ->join('pertanyaan','pertanyaan.id','jawaban.id_pertanyaan')
+        ->join('opsi_pertanyaan', 'opsi_pertanyaan.id', 'jawaban.id_opsi')
+        ->join('alumni', 'alumni.id', 'jawaban.id_alumni')
+        ->select(DB::raw("COUNT(opsi_pertanyaan.nama_opsi) as countBidang"), 'opsi_pertanyaan.nama_opsi', 'opsi_pertanyaan.id')
+        ->groupBy('opsi_pertanyaan.nama_opsi', 'opsi_pertanyaan.id')
+        ->where('pertanyaan.nama_pertanyaan', 'like', '%erat%')
+        ->get();
+
+        return view('laporan.chartBidang', compact('bidang'));
+    }
+
 
 }

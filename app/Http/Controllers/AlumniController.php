@@ -2,24 +2,63 @@
 
 namespace App\Http\Controllers;
 
+use Excel;
+use App\Prodi;
 use App\Alumni;
 use App\Jabatan;
-use App\Perusahaan;
+use App\Fakultas;
 use App\Mahasiswa;
-use App\Prodi;
+use App\Perusahaan;
 use Illuminate\Http\Request;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
-use Excel;
 use App\Exports\AlumniExport;
 use App\Imports\AlumniImport;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class AlumniController extends Controller
 {
     public function index()
     {
-        $alumnis = Alumni::paginate(10);
+        if(request('fakultas')) {
+            $fakultas = Fakultas::all();
+            $fklName = $fakultas->where('nama_fakultas', request('fakultas'))->first()->nama_fakultas;
+        }
+
+        else {
+            $fakultas = Fakultas::all();
+            $fklName = 'Fakultas';
+        }
+
+        if(request('prodi')) {
+            $prodi = Prodi::all();
+            $prdName = $prodi->where('nama_prodi', request('prodi'))->first()->nama_prodi;
+        }
+
+        else {
+            $prodi = Prodi::all();
+            $prdName = 'Program Studi';
+        }
+
+        if(request('lulusan')) {
+            $lulusan = DB::table("mahasiswa")
+                ->select(DB::raw("YEAR(tgl_yudisium) as lulusan"))
+                ->orderBy('tgl_yudisium')
+                ->groupBy(DB::raw("YEAR(tgl_yudisium)"))
+                ->get();
+        }
+
+        else {
+            $lulusan = DB::table("mahasiswa")
+            ->select(DB::raw("YEAR(tgl_yudisium) as lulusan"))
+            ->orderBy('tgl_yudisium')
+            ->groupBy(DB::raw("YEAR(tgl_yudisium)"))
+            ->get();
+        }
+
+        $alumnis = Alumni::filter()->paginate(10);
         $mahasiswa = Mahasiswa::all();
-        return view ('alumni.index', compact('alumnis', 'mahasiswa'));
+        return view ('alumni.index', compact('alumnis', 'mahasiswa', 'prodi', 'fakultas', 'fklName', 'prdName', 'lulusan'));
     }
 
     /**
@@ -29,6 +68,7 @@ class AlumniController extends Controller
      */
     public function input()
     {
+
         $mahasiswa = Mahasiswa::all();
         $prodi = Prodi::all();
         return view ('alumni.input', compact('mahasiswa', 'prodi'));
@@ -156,6 +196,17 @@ class AlumniController extends Controller
         $alumni = Alumni::where('id', $id)->delete();
 
         return redirect()->route('alumni.index');
+    }
+
+    public function chartProgramStudi() {
+        $alumniProdi = DB::table('alumni')
+        ->join('mahasiswa','mahasiswa.NIM','alumni.NIM')
+        ->join('program_studi','program_studi.id','mahasiswa.id_prodi')
+        ->select(DB::raw("COUNT(program_studi.nama_prodi) as countProdi"), 'program_studi.nama_prodi')
+        ->groupBy( 'program_studi.nama_prodi')
+        ->get();
+
+        return response()->json($alumniProdi);
     }
 
 }

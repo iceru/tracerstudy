@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Alumni;
+use App\Mahasiswa;
+use App\Perusahaan;
+use App\HistoryPekerjaan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,6 +28,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home-admin');
+        $countAlumni = Alumni::count();
+        $countMhs = Mahasiswa::count();
+        $countPerusahaan = Perusahaan::count();
+        $countKuesioner = HistoryPekerjaan::count();
+        return view('home-admin', compact('countAlumni', 'countMhs', 'countPerusahaan', 'countKuesioner'));
     }
 }

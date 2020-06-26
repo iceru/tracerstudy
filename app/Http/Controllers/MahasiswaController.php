@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Mahasiswa;
-use App\Prodi;
-use Illuminate\Http\Request;
 use Excel;
+use App\Prodi;
+use App\Fakultas;
+use App\Mahasiswa;
+use Illuminate\Http\Request;
 use App\Exports\MahasiswaExport;
 use App\Imports\MahasiswaImport;
+use Illuminate\Support\Facades\DB;
 
 class MahasiswaController extends Controller
 {
@@ -18,8 +20,44 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswa = Mahasiswa::paginate(20);
-        return view('mahasiswa.index', compact('mahasiswa'));
+        if(request('fakultas')) {
+            $fakultas = Fakultas::all();
+            $fklName = $fakultas->where('nama_fakultas', request('fakultas'))->first()->nama_fakultas;
+        }
+
+        else {
+            $fakultas = Fakultas::all();
+            $fklName = 'Fakultas';
+        }
+
+        if(request('prodi')) {
+            $prodi = Prodi::all();
+            $prdName = $prodi->where('nama_prodi', request('prodi'))->first()->nama_prodi;
+        }
+
+        else {
+            $prodi = Prodi::all();
+            $prdName = 'Program Studi';
+        }
+
+        if(request('lulusan')) {
+            $lulusan = DB::table("mahasiswa")
+                ->select(DB::raw("YEAR(tgl_yudisium) as lulusan"))
+                ->orderBy('tgl_yudisium')
+                ->groupBy(DB::raw("YEAR(tgl_yudisium)"))
+                ->get();
+        }
+
+        else {
+            $lulusan = DB::table("mahasiswa")
+            ->select(DB::raw("YEAR(tgl_yudisium) as lulusan"))
+            ->orderBy('tgl_yudisium')
+            ->groupBy(DB::raw("YEAR(tgl_yudisium)"))
+            ->get();
+        }
+
+        $mahasiswa = Mahasiswa::filter()->paginate(20);
+        return view('mahasiswa.index', compact('mahasiswa', 'prodi', 'fakultas', 'fklName', 'prdName', 'lulusan'));
     }
 
     /**
@@ -29,7 +67,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        $mahasiswa = Mahasiswa::paginate(10);
+        $mahasiswa = Mahasiswa::paginate(20);
         $prodi = Prodi::all();
         return view('mahasiswa.create', compact('mahasiswa', 'prodi'));
     }
@@ -150,5 +188,15 @@ class MahasiswaController extends Controller
         $mahasiswa = Mahasiswa::where('NIM', $id)->delete();
 
         return redirect('/mahasiswa');
+    }
+
+    public function chartMhs() {
+        $chartMhs = DB::table('mahasiswa')
+        ->join('program_studi','program_studi.id','mahasiswa.id_prodi')
+        ->select(DB::raw("COUNT(program_studi.nama_prodi) as countProdi"), 'program_studi.nama_prodi')
+        ->groupBy('program_studi.nama_prodi')
+        ->get();
+
+        return response()->json($chartMhs);
     }
 }

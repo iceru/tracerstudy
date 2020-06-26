@@ -13,6 +13,6 @@ class Jabatan extends Model
 
     public function historyPekerjaan()
     {
-        return $this->belongsTo(HistoryPekerjaan::class);
+        return $this->belongsTo(HistoryPekerjaan::class, 'id_jabatan');
     }
 }

@@ -2,9 +2,9 @@
 
 @section('content')
 <div class="row">
-
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
+            <a href="{{ route('users.index') }}" class="mb-2"><i class="fas fa-arrow-left    "></i> Kembali ke data users</a>
             <h2>Create New User</h2>
         </div>
     </div>

@@ -23,14 +23,6 @@
             <input type="text" class="form-control" name="nama_pertanyaan" id="nama_pertanyaan" value="{{ old('nama_pertanyaan', $pertanyaan->nama_pertanyaan) }}">
         </div>
 
-        <div class="form-group">
-            <label for="jenis_pertanyaan">Jenis Pertanyaan</label>
-             <select class="form-control" name="jenis_pertanyaan" id="jenis_pertanyaan">
-               <option value="multiple-choice" @if (old('jenis_pertanyaan') == "multiple-choice") {!! 'selected' !!} @endif>Multiple Choice</option>
-               <option value="multiple-answer" @if (old('jenis_pertanyaan') == "multiple-answer") {!! 'selected' !!} @endif>Multiple Answer</option>
-               <option value="direct-answer" @if (old('jenis_pertanyaan') == "direct-answer") {!! 'selected' !!} @endif>Direct Answer</option>
-             </select>
-        </div>
         <button class="btn btn-warning" type="submit">Update</button>
         <button class="btn btn-secondary" href="{{ route('pertanyaan.create') }}">Cancel</button>
     </form>

@@ -6,14 +6,25 @@ Opsi
 
 @section('content')
 <div class="input-title">
-    <h2>Input Data Opsi</h2>
+    <h2>Input Data Opsi Multiple Choice</h2>
     <hr>
 </div>
+
+<div class="fakultas pr-4">
+    <div onclick="ddFakultas()" class="wrdd2" tabindex="1">
+      <span>Pilih Jenis Opsi</span>
+      <ul class="dd-item" id="ddfakultas">
+        <li><a href="{{ route('opsi.create') }}">Opsi Multiple Choice</a></li>
+        <li><a href="{{ route('opsi.createMultiple') }}">Opsi Multiple Answer</a></li>
+      </ul>
+    </div>
+</div>
+
 <div class="input-form">
     <form action="{{ route('opsi.store') }}" method="post">
         @csrf
         <div class="form-group">
-            <label for="nama">Nama Opsi</label>
+            <label for="nama">Nama Opsi Multiple Choice</label>
             <input type="text" class="form-control" name="nama_opsi" id="nama_opsi" aria-describedby="helpId" placeholder="Nama Opsi">
         </div>
 
@@ -26,7 +37,7 @@ Opsi
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="button-red">Submit</button>
     </form>
 
 </div>
@@ -58,7 +69,6 @@ Opsi
                     </form>
                 </td>
             </tr>
-
             @endforeach
         </tbody>
     </table>

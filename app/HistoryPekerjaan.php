@@ -23,9 +23,9 @@ class HistoryPekerjaan extends Model
         return $this->hasMany(Alumni::class);
     }
 
-    public function pekerjaan()
+    public function perusahaan()
     {
-        return $this->hasMany(Pekerjaan::class);
+        return $this->hasMany(Perusahaan::class);
     }
 
 }

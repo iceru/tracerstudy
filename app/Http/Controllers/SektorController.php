@@ -96,4 +96,18 @@ class SektorController extends Controller
 
         return redirect('/sektor');
     }
+
+    public function storeAlumni(Request $request)
+    {
+        $sektor = Sektor::insert([
+            'id' => $id = IdGenerator::generate(['table' => 'sektor_perusahaan', 'length' => 6, 'prefix' =>'SP-']),
+            'nama_sektor' => $request->nama_sektor,
+        ]);
+
+        return back();
+    }
+
+    public function createAlumni() {
+        return view('sektor-alumni');
+    }
 }

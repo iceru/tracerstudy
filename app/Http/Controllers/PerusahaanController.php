@@ -32,6 +32,13 @@ class PerusahaanController extends Controller
         return view('perusahaan.create', compact('sektor'));
     }
 
+    public function createAlumni()
+    {
+        $sektor = Sektor::all();
+        return view('perusahaan-alumni', compact('sektor'));
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *

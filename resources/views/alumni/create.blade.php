@@ -60,7 +60,7 @@
 
                           <div class="form-group">
                               <label for="tgl_yudisium">Tanggal Yudisium / Lulus</label>
-                              <input type="text" class="form-control" name="tgl_yudisium" id="datepicker">
+                              <input type="text" name="tgl_yudisium" id="idTourDateDetails" class="form-control clsDatePicker">
                           </div>
 
                           <div class="form-group">
@@ -91,15 +91,4 @@
         <p>Terima kasih sudah mengunjungi laman ini dan turut berpartisipasi dalam melakukan pengisian data anda.</p>
     </div>
 </div>
-@endsection
-
-@section('js')
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-$('#alumniinput').on('shown.bs.modal', function (e) {
-     $('#datepicker').datepicker();
-});
-</script>
 @endsection

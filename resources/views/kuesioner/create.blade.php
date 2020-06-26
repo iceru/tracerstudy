@@ -19,12 +19,6 @@
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
 
-                    @if ( $item->jenis_pertanyaan == 'direct-answer' )
-                    <input type="text" name="responses[{{ $key }}][id_opsi]" class="form-control">
-                    <input type="hidden" name="responses[{{ $key }}][id_pertanyaan]" value="{{ $item->id }}">
-                    <input type="hidden" name="responses[{{ $key }}][id_alumni]" value="{{$history->id_alumni}}">
-
-                    @elseif ( $item->jenis_pertanyaan == 'multiple-choice')
                     <ul class="list-group">
                         @foreach ($item->opsi as $opsi)
                         <label for="opsi{{ $opsi->id }}">
@@ -39,24 +33,6 @@
                         <input type="hidden" name="responses[{{ $key }}][id_alumni]" value="{{$history->id_alumni}}">
                         @endforeach
                     </ul>
-
-
-                    @else
-                    <ul class="list-group">
-                        @foreach ($item->opsi as $opsi)
-                        <label for="opsi{{ $opsi->id }}">
-                        <li class="list-group-item">
-                            <input type="checkbox" class="mr-2" name="responses[{{ $key }}][id_opsi][]"
-                            id="opsi{{ $opsi->id }}" value="{{ $opsi->id }}">
-                            {{ $opsi->nama_opsi }}
-                            <input type="hidden" name="responses[{{ $key }}][id_pertanyaan]" value="{{ $item->id }}">
-                        </li>
-                        </label>
-                        <input type="hidden" name="responses[{{ $key }}][id_alumni]" value="{{$history->id_alumni}}">
-                        @endforeach
-                    </ul>
-
-                    @endif
 
                 </div>
             </div>

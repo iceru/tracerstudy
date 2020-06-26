@@ -5,43 +5,45 @@ Sektor Perusahaan
 @endsection
 
 @section('content')
-<div class="input-title">
-    <h2>Input Data Sektor Perusahaan</h2>
-    <hr>
-</div>
+<div class="wrap-input">
 
-<div class="button-create">
-    <a href="{{ route('sektor.create') }}" class="button-red">Create Data Sektor Perusahaan</a>
-</div>
+    <div class="input-title">
+        <h2>Input Data Sektor Perusahaan</h2>
+        <hr>
+    </div>
 
-<div class="output-data">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>ID Sektor</th>
-                <th>Nama Sektor</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($sektor as $item)
-            <tr>
-                <td scope="row">{{ $loop->iteration }}</td>
-                <td>{{ $item->id }}</td>
-                <td>{{ $item->nama_sektor }}</td>
-                <td id="action">
-                    <a href="{{ route('sektor.edit', $item->id) }}"><i class="fas fa-edit    "></i>  Edit</a>
-                    <form action="{{ route('sektor.destroy', $item->id )}}" method="get">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn" type="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
+    <div class="button-create">
+        <a href="{{ route('sektor.create') }}" class="button-red">Create Data Sektor Perusahaan</a>
+    </div>
 
-        </tbody>
-    </table>
+    <div class="output-data">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Sektor</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($sektor as $item)
+                <tr>
+                    <td scope="row">{{ ($sektor ->currentpage()-1) * $sektor ->perpage() + $loop->index + 1 }}</td>
+                    <td>{{ $item->nama_sektor }}</td>
+                    <td id="action">
+                        <a href="{{ route('sektor.edit', $item->id) }}"><i class="fas fa-edit    "></i>  Edit</a>
+                        <form action="{{ route('sektor.destroy', $item->id )}}" method="get">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn" type="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+
+            </tbody>
+        </table>
+        {{ $sektor->links() }}
+    </div>
 </div>
 @endsection

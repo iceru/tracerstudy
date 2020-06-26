@@ -6,27 +6,30 @@ Pertanyaan
 
 @section('content')
 <div class="input-title">
-    <h2>Input Data Pertanyaan</h2>
+    <h2>Input Pertanyaan Multiple Choice</h2>
     <hr>
 </div>
+
+<div class="fakultas pr-4">
+    <div onclick="ddFakultas()" class="wrdd2" tabindex="1">
+      <span>Pilih Jenis Pertanyaan</span>
+      <ul class="dd-item" id="ddfakultas">
+        <li><a href="{{ route('pertanyaan.create') }}">Multiple Choice / Radio Button</a></li>
+        <li><a href="{{ route('pertanyaan.createMultiple') }}">Multiple Answer / Checkbox</a></li>
+        <li><a href="{{ route('pertanyaan.createDirect') }}">Direct Answer / Text</a></li>
+      </ul>
+    </div>
+</div>
+
 <div class="input-form">
     <form action="{{ route('pertanyaan.store') }}" method="post">
         @csrf
         <div class="form-group">
-            <label for="nama">Nama Pertanyaan</label>
+            <label for="nama"> Pertanyaan</label>
             <input type="text" class="form-control" name="nama_pertanyaan" id="nama_pertanyaan">
         </div>
 
-        <div class="form-group">
-            <label for="jenis_pertanyaan">Jenis Pertanyaan</label>
-             <select class="form-control" name="jenis_pertanyaan" id="jenis_pertanyaan">
-                 @foreach ($jenis as $jenis)
-                 <option value="{{ $jenis }}">{!! ucwords(str_replace('-', ' ', $jenis )) !!}</option>
-                 @endforeach
-             </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="button-red">Submit</button>
     </form>
 </div>
 
@@ -37,7 +40,6 @@ Pertanyaan
                 <th>No</th>
                 <th>ID Pertanyaan</th>
                 <th>Nama Pertanyaan</th>
-                <th>Jenis Pertanyaan-</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -47,7 +49,6 @@ Pertanyaan
                 <td scope="row">{{ $loop->iteration }}</td>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->nama_pertanyaan }}</td>
-                <td>{!! ucwords(str_replace('-', ' ', $item->jenis_pertanyaan )) !!}</td>
                 <td id="action">
                     <a href="{{ route('pertanyaan.edit', $item->id) }}"><i class="fas fa-edit    "></i> Edit </a>
                     <form action="{{ route('pertanyaan.destroy', $item->id )}}" method="get">

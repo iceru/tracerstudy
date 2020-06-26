@@ -11,12 +11,15 @@
     <script src="{{ mix('js/app.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/js/all.min.js" integrity="sha256-+Q/z/qVOexByW1Wpv81lTLvntnZQVYppIL1lBdhtIq0=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <body>
     <main>
-        <div class="main">
-            <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="main-fp">
+            <nav class="navbar2 navbar-expand-sm navbar-light bg-light">
                 <a class="navbar-brand" href="#">
                     <img src="/image/untar.png" class="img-fluid" alt="">
                 </a>
@@ -42,6 +45,15 @@
 
 
     </main>
+    @yield ('js')
+
+    <script>
+        $('#idTourDateDetails').datepicker({
+        dateFormat: 'yy-mm-dd',
+        changeMonth: true,
+        changeYear: true,
+    });
+   </script>
 
 </body>
 
