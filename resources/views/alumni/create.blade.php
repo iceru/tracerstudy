@@ -10,10 +10,10 @@
             @csrf
             <div class="form-group">
                 <label for="">Nomor Induk Mahasiswa</label>
-                <select class="form-control selectpicker" data-live-search="true" name="NIM" id="NIM">
+                <select class="form-control" data-live-search="true" name="NIM" id="NIM">
                     <option>NIM</option>
                     @foreach ($mahasiswa as $item)
-                    <option value="{{ $item->NIM }}">{{ $item->NIM }} - {{ $item->nama_mhs }}</option>
+                    <option data-tokens="{{ $item->nama_mhs }}" value="{{ $item->NIM }}">{{ $item->NIM }} - {{ $item->nama_mhs }}</option>
                     @endforeach
                 </select>
                 <small id="helpId"> <button type="button" class="btn"
@@ -91,4 +91,7 @@
         <p>Terima kasih sudah mengunjungi laman ini dan turut berpartisipasi dalam melakukan pengisian data anda.</p>
     </div>
 </div>
+@endsection
+
+@section('js')
 @endsection

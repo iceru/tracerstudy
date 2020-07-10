@@ -7,7 +7,7 @@ Pertanyaan
 @section('content')
 <div class="wrap-input">
     <div class="input-title col-md-10">
-        <h2>Data Kuesioner</h2>
+        <h2>Hasil Kuesioner</h2>
         <hr>
     </div>
 

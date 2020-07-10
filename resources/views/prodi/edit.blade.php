@@ -20,7 +20,7 @@
         @method('PATCH')
         <div class="form-group">
             <label for="id">ID Program Studi</label>
-            <input type="text" class="form-control" name="id" id="id" value="{{ old('id', $prodi->id) }}" readonly>
+            <input type="text" class="form-control" name="id_prodi" id="id" value="{{ old('id', $prodi->id) }}">
         </div>
 
         <div class="form-group">

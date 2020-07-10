@@ -11280,7 +11280,7 @@ label p {
 }
 
 .detailalumni p {
-  font-size: 1.3em;
+  font-size: 1.26em;
   margin: 3px 0;
 }
 
@@ -11497,6 +11497,11 @@ a:hover {
 .kartuQS {
   height: 90%;
   vertical-align: middle;
+}
+
+.table ul {
+  list-style-type: none;
+  padding: 0 !important;
 }
 
 .output-data {

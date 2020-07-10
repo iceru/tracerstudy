@@ -95,11 +95,15 @@
             var myChart = new Chart(ctx, {
               type: 'bar',
               data: {
-                  labels:chartPerusahaan,
+                  labels:[@foreach($data as $k => $item)
+                            '{{ $item->nama_perusahaan }}',
+                            @endforeach ],
                   datasets: [{
                     barPercentage: 1,
                     label: 'Perusahaan Alumni',
-                    data: countPerusahaan,
+                    data: [@foreach($data as $k => $item)
+                            '{{ $item->countPerusahaan }}',
+                            @endforeach ],
                     borderWidth: 1,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',

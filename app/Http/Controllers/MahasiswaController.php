@@ -6,6 +6,7 @@ use Excel;
 use App\Prodi;
 use App\Fakultas;
 use App\Mahasiswa;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Exports\MahasiswaExport;
 use App\Imports\MahasiswaImport;
@@ -79,7 +80,8 @@ class MahasiswaController extends Controller
      */
     public function export()
     {
-        return Excel::download(new MahasiswaExport, 'mahasiswa.xlsx');
+        $tanggal = date('Y-m-d');
+        return Excel::download(new MahasiswaExport, $tanggal . ' - mahasiswa.xlsx');
     }
 
     /**
@@ -89,8 +91,12 @@ class MahasiswaController extends Controller
      */
     public function import()
     {
-       Excel::import(new MahasiswaImport,request()->file('file'));
-       return back();
+        $validate = request()->validate([
+            'file' => 'required',
+        ]);
+
+        Excel::import(new MahasiswaImport,request()->file('file'));
+        return back();
     }
 
     /**
@@ -101,12 +107,21 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = request()->validate([
+            'NIM' => 'required|unique:mahasiswa,NIM|max:9',
+            'nama_mhs' => 'required',
+            'tgl_yudisium' => 'required',
+            'ipk' => 'required',
+            'id_prodi' => 'required'
+        ]);
+
         Mahasiswa::insert([
             'NIM' => $request->NIM,
             'nama_mhs' => $request->nama_mhs,
             'tgl_yudisium' => $request->tgl_yudisium,
             'ipk' => $request->ipk,
             'id_prodi' => $request->id_prodi,
+            'created_at' => Carbon::now()->toDateTimeString(),
         ]);
 
         return redirect('/mahasiswa');

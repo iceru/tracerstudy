@@ -10,7 +10,6 @@
             <canvas id="canvas" height="200px" width="400px"></canvas>
         </div>
 
-
         <div class="opsi d-flex">
             <div class="fakultas pr-4">
                 <div onclick="ddFakultas()" class="wrdd" tabindex="1">
@@ -48,6 +47,7 @@
             <a style="margin: 20px 0" href="{{request()->url()}}" class="button-red">Clear Filter</a>
 
         </div>
+
         <table class="table">
             <thead>
                 <tr>
@@ -89,11 +89,15 @@
             var myChart = new Chart(ctx, {
               type: 'bar',
               data: {
-                  labels:namaJabatan,
+                  labels:[@foreach($data as $k => $item)
+                            '{{ $item->nama_jabatan }}',
+                            @endforeach ],
                   datasets: [{
                       barPercentage: 1,
                       label: 'Jabatan Alumni',
-                      data: countJabatan,
+                      data: [@foreach($data as $k => $item)
+                            '{{ $item->countJabatan }}',
+                            @endforeach ],
                       borderWidth: 1,
                       backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',

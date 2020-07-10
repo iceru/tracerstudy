@@ -1,25 +1,31 @@
 @extends('layout.adminapp')
 
+
 @section('content')
-<div class="back">
-    <a href="{{ route('jarak.haversine') }}"><i class="fas fa-arrow-left    "></i>  Kembali</a>
+<div class="wrap-input">
+    <div class="back">
+        <a class="redtext" href="{{ route('jarak.haversine') }}"><i class="fas fa-arrow-left    "></i>  Kembali</a>
+    </div>
+
+    <h1>Detail Perusahaan Alumni</h1>
+    <hr>
+
+
+    <div id="map" style="height:450px; margin-top: 40px"></div>
+
+    @foreach ($jarak as $jarak)
+    <div class="detailalumni">
+        <p><strong>Nama Alumni </strong> : {{ $jarak->nama_mhs }}</p>
+        <p><strong>Perusahaan </strong> : {{ $jarak->nama_perusahaan }}</p>
+        <p><strong>Alamat Perusahaan </strong>  :  {{ $jarak->alamat_perusahaan }}</p>
+        <p><strong>Nomor Perusahaan </strong> : {{ $jarak->nomor_perusahaan }}</p>
+        <p><strong>Email Perusahaan </strong> : {{ $jarak->email_perusahaan }}</p>
+    </div>
+    @endforeach
+
+    </body>
+
 </div>
-
-<h1>Detail Perusahaan Alumni</h1>
-<hr>
-
-
-<div id="map" style="height:450px; margin-top: 40px"></div>
-
-@foreach ($jarak as $jarak)
-<div class="detailalumni">
-    <p><strong>Nama Alumni:</strong> : {{ $jarak->nama_mhs }}</p>
-    <p><strong>Perusahaan</strong> : {{ $jarak->nama_perusahaan }}</p>
-    <p><strong>Alamat Perusahaan:</strong>  :  {{ $jarak->alamat_perusahaan }}</p>
-</div>
-@endforeach
-
-</body>
 
 @endsection
 

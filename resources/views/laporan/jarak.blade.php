@@ -41,6 +41,17 @@
             </div>
         </div>
 
+        <div class="lulusan pr-4">
+            <div onclick="ddTgl()" class="wrdd" tabindex="1">
+              <span>{{ $tglName }}</span>
+              <ul class="dd-item" id="ddtgl">
+                @foreach ($tgl as $item)
+                <li><a href="{{request()->fullUrlWithQuery(['tgl_pengisian'=> $item->tgl])}}">{{ $item->tgl }} </a></li>
+                @endforeach
+              </ul>
+            </div>
+        </div>
+
         <a style="margin: 20px 0" href="{{request()->url()}}" class="button-red">Clear Filter</a>
 
     </div>
@@ -68,7 +79,7 @@
                     <td>{{ $item->NIM }}</td>
                     <td>{{ $item->alamat_perusahaan }}</td>
                     <td>{{ round($item->distance, 2) }} KM</td>
-                    <td><a href="{{ route('laporan.showJarak', $item->id) }}">Detail</a></td>
+                    <td><a class="redtext" href="{{ route('laporan.showJarak', $item->id) }}">Detail</a></td>
                 </tr>
                 @endforeach
 

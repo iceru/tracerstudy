@@ -37,6 +37,13 @@ class FakultasController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = request()->validate([
+            'nama_fakultas' => 'required|unique:fakultas,nama_fakultas',
+        ],
+        [
+            'nama_fakultas.unique' => 'Nama Fakultas sudah ada',
+        ]);
+
         Fakultas::insert([
             'id' => $id = IdGenerator::generate(['table' => 'fakultas', 'length' => 6, 'prefix' =>'FK-']),
             'nama_fakultas' => $request->nama_fakultas
@@ -77,6 +84,10 @@ class FakultasController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validate = request()->validate([
+            'nama_fakultas' => 'required|unique:fakultas,nama_fakultas',
+        ]);
+
         $fakultas = Fakultas::where('id', $id)->update([
             'nama_fakultas' => $request->nama_fakultas
         ]);

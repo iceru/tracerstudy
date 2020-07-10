@@ -129,7 +129,8 @@ class AlumniController extends Controller
      */
     public function export()
     {
-        return Excel::download(new AlumniExport, 'alumni.xlsx');
+        $tanggal = date('Y-m-d');
+        return Excel::download(new AlumniExport, $tanggal . '- alumni.xlsx');
     }
 
     /**

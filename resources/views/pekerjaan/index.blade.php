@@ -32,9 +32,11 @@ Pekerjaan Alumni
     </div>
 
     <div class="dua d-flex justify-content-between">
+        @can('data-create')
         <div class="button-create">
             <a href="{{ route('pekerjaan.create') }}" class="button-red">Create Data Pekerjaan Alumni</a>
         </div>
+        @endcan
 
         <div class="clear">
             @if(request()->fullurl() != request()->url())
@@ -91,7 +93,9 @@ Pekerjaan Alumni
                         <th>Program Studi</th>
                         <th>Fakultas</th>
                         <th>Tanggal Input</th>
+                        @can('data-edit')
                         <th>Action</th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -104,6 +108,7 @@ Pekerjaan Alumni
                         <td>{{ $item->nama_prodi }}</td>
                         <td>{{ $item->nama_fakultas }}</td>
                         <td>{{ $item->created_at }}</td>
+                        @can('data-edit')
                         <td id="action">
                             <a href="{{ route('pekerjaan.edit', $item->id) }}"><i class="fas fa-edit"></i> Edit</a>
                             <form action="{{ route('pekerjaan.destroy', $item->id )}}" method="get">
@@ -112,6 +117,7 @@ Pekerjaan Alumni
                                 <button class="btn" type="submit"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
                             </form>
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
                 </tbody>

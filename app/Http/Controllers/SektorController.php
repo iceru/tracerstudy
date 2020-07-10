@@ -15,7 +15,7 @@ class SektorController extends Controller
      */
     public function index()
     {
-        $sektor = Sektor::paginate(10);
+        $sektor = Sektor::paginate(20);
         return view('perusahaan.sektor.index', compact('sektor'));
     }
 
@@ -37,6 +37,10 @@ class SektorController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = request()->validate([
+            'nama_sektor' => 'required|unique:sektor_perusahaan,nama_sektor',
+        ]);
+
         $sektor = Sektor::insert([
             'id' => $id = IdGenerator::generate(['table' => 'sektor_perusahaan', 'length' => 6, 'prefix' =>'SP-']),
             'nama_sektor' => $request->nama_sektor,
@@ -77,6 +81,9 @@ class SektorController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validate = request()->validate([
+            'nama_sektor' => 'required|unique:sektor_perusahaan,nama_sektor',
+        ]);
         $sektor = Sektor::where('id', $id)->update([
             'nama_sektor' => $request->nama_sektor,
         ]);
@@ -99,6 +106,9 @@ class SektorController extends Controller
 
     public function storeAlumni(Request $request)
     {
+        $validate = request()->validate([
+            'nama_sektor' => 'required|unique:sektor_perusahaan,nama_sektor',
+        ]);
         $sektor = Sektor::insert([
             'id' => $id = IdGenerator::generate(['table' => 'sektor_perusahaan', 'length' => 6, 'prefix' =>'SP-']),
             'nama_sektor' => $request->nama_sektor,

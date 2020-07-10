@@ -83,12 +83,12 @@
 
                       <div class="form-group">
                           <label for="nama">Nama Perusahaan</label>
-                          <input type="text" class="form-control" name="nama_perusahaan" id="nama_perusahaan" aria-describedby="helpId">
+                          <input type="text" class="form-control" name="nama_perusahaan" id="nama_perusahaan" aria-describedby="helpId" required>
                       </div>
 
                         <div class="form-group">
                             <label for="alamat">Alamat Perusahaan</label>
-                            <input type="text" id="address-input" name="alamat_perusahaan" class="form-control map-input">
+                            <input type="text" id="address-input" name="alamat_perusahaan" class="form-control map-input" required>
                             <input type="hidden" name="latitude" id="address-latitude" value="-6.2295712" />
                             <input type="hidden" name="longitude" id="address-longitude" value="106.7594779" />
                         </div>
@@ -99,7 +99,7 @@
 
                       <div class="form-group">
                           <label for="kontak_perusahaan">Kontak Perusahaan</label>
-                          <input type="text" class="form-control" name="kontak_perusahaan" id="kontak_perusahaan" aria-describedby="helpId">
+                          <input type="text" class="form-control" name="kontak_perusahaan" id="kontak_perusahaan" aria-describedby="helpId" required>
                       </div>
 
                       <div class="form-group">

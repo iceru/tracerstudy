@@ -21,7 +21,8 @@ class LaporanJabatanController extends Controller
         ->join ('fakultas', 'fakultas.id', 'program_studi.id_fakultas')
         ->join('perusahaan', 'perusahaan.id', 'history_pekerjaan.id_perusahaan')
         ->join('jabatan', 'jabatan.id', 'history_pekerjaan.id_jabatan')
-        ->select('mahasiswa.nama_mhs', 'alumni.no_hp', 'alumni.email', 'perusahaan.nama_perusahaan', 'jabatan.nama_jabatan', 'program_studi.nama_prodi', 'fakultas.nama_fakultas', DB::raw("YEAR(tgl_yudisium) AS lulus"));
+        ->select('mahasiswa.nama_mhs', 'alumni.no_hp', 'alumni.email', 'perusahaan.nama_perusahaan', 'jabatan.nama_jabatan', 'program_studi.nama_prodi', 'history_pekerjaan.created_at',
+        'fakultas.nama_fakultas', DB::raw("YEAR(tgl_yudisium) AS lulus"));
 
         if(request('fakultas')) {
             $data = $jabatan->where('nama_fakultas', '=', request('fakultas'))->get();
@@ -41,6 +42,16 @@ class LaporanJabatanController extends Controller
             $prdName = 'Program Studi';
         }
 
+        if(request('tgl_pengisian')) {
+            $data = $jabatan->where(DB::raw("YEAR(history_pekerjaan.created_at)"), '=', request('tgl_pengisian'))->get();
+            $tglName = request('tgl_pengisian');
+        }
+
+        else {
+            $tglName = 'Tahun Pengisian';
+        }
+
+
         if(request('lulusan')) {
             $data = $jabatan->where(DB::raw("YEAR(tgl_yudisium)"), '=', request('lulusan'))->get();
             $llsName = request('lulusan');
@@ -59,11 +70,18 @@ class LaporanJabatanController extends Controller
                 ->groupBy(DB::raw("YEAR(tgl_yudisium)"))
                 ->get();
 
-        return view ('laporan.jabatan-perusahaan', compact('data', 'prodi', 'fakultas', 'lulusan', 'prdName', 'fakultasNama', 'llsName'));
+        $tgl = DB::table("history_pekerjaan")
+            ->select(DB::raw("YEAR(created_at) as tgl"))
+            ->orderBy('created_at')
+            ->groupBy(DB::raw("YEAR(created_at)"))
+            ->get();
+
+        return view ('laporan.jabatan-perusahaan', compact('data', 'prodi', 'fakultas', 'lulusan', 'prdName', 'fakultasNama', 'llsName', 'tglName', 'tgl'));
     }
 
     public function export() {
-        return Excel::download(new PekerjaanExport, 'pekerjaan-alumni.xlsx');
+        $tanggal = date('Y-m-d');
+        return Excel::download(new PekerjaanExport, $tanggal . '- pekerjaan-alumni.xlsx');
     }
 
     public function indexChartJabatan() {

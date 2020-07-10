@@ -5,6 +5,17 @@
 @endsection
 
 @section('content')
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        Input Error <br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+
+@endif
 <div class="wrap-input">
     <div class="input-title">
         <h2>Input Data Fakultas</h2>

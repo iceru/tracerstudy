@@ -32,10 +32,11 @@ Mahasiswa
     </div>
 
     <div class="dua d-flex justify-content-between">
+        @can ('data-create')
         <div class="button-create">
             <a href="{{ route('mahasiswa.create') }}" class="button-red">Create Data Mahasiswa</a>
         </div>
-
+        @endcan
         <div class="clear">
             @if(request()->fullurl() != request()->url())
             <a href="{{request()->url()}}" class="button-red">Clear Filter</a>
@@ -81,17 +82,19 @@ Mahasiswa
     </div>
 
     <div class="output-data">
-            <table class="table">
+            <table class="table tablesorter" id="myTable">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>NIM</th>
-                        <th>Nama Mahasiswa</th>
-                        <th>Tanggal Yudisium</th>
-                        <th>IPK</th>
-                        <th>Program Studi</th>
-                        <th>Fakultas</th>
+                        <th>No <i class="fas fa-sort    "></i></th>
+                        <th>NIM <i class="fas fa-sort    "></i></th>
+                        <th>Nama Mahasiswa <i class="fas fa-sort    "></i></th>
+                        <th>Tanggal Yudisium <i class="fas fa-sort    "></i></th>
+                        <th>IPK <i class="fas fa-sort    "></i></th>
+                        <th>Program Studi <i class="fas fa-sort    "></i></th>
+                        <th>Fakultas <i class="fas fa-sort    "></i></th>
+                        @can ('data-edit')
                         <th>Action</th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -104,6 +107,7 @@ Mahasiswa
                         <td>{{ $item->ipk }}</td>
                         <td>{{ $item->prodi->nama_prodi }}</td>
                         <td>{{ $item->prodi->fakultas->nama_fakultas }}</td>
+                        @can ('data-edit')
                         <td id="action">
                             <a href="{{ route('mahasiswa.edit', $item->NIM) }}"><i class="fas fa-edit"></i> Edit</a>
                             <form action="{{ route('mahasiswa.destroy', $item->NIM )}}" method="get">
@@ -112,6 +116,7 @@ Mahasiswa
                                 <button class="btn" type="submit"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
                             </form>
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
                 </tbody>
@@ -138,6 +143,12 @@ Mahasiswa
     function ddLulusan() {
     document.getElementById("ddlulusan").classList.toggle("showdd");
   }
+</script>
+
+<script>
+$(function() {
+  $("#myTable").tablesorter();
+});
 </script>
 @endsection
 

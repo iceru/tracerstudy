@@ -34,7 +34,7 @@ Opsi
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
-    <hr>
+    {{-- <hr>
     <h3>Import / Export Data Using Excel</h1>
     <form action="{{ route('alumni.import') }}" method="post" enctype="multipart/form-data">
         @csrf
@@ -49,7 +49,7 @@ Opsi
         <a href="{{ route('alumni.export') }}" class="btn btn-warning">Export Data Alumni</a>
         </div>
 
-    </form>
+    </form> --}}
 
 </div>
 

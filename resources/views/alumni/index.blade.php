@@ -13,9 +13,11 @@ Opsi
     </div>
 
     <div class="dua d-flex justify-content-between">
+        @can('data-create')
         <div class="button-create">
             <a href="{{ route('alumni.input') }}" class="button-red">Create Data Alumni</a>
         </div>
+        @endcan
 
         <div class="clear">
             @if(request()->fullurl() != request()->url())
@@ -74,7 +76,9 @@ Opsi
                     <th>Fakultas</th>
                     <th>Nomor Handphone</th>
                     <th>Email</th>
+                    @can('data-edit')
                     <th>Action</th>
+                    @endcan
                 </tr>
             </thead>
             <tbody>
@@ -87,6 +91,7 @@ Opsi
                     <td>{{ $alumni->mahasiswa->prodi->fakultas->nama_fakultas }}</td>
                     <td>{{ $alumni->no_hp}}</td>
                     <td>{{ $alumni->email}}</td>
+                    @can('data-edit')
                     <td id="action">
                         <a href="{{ route('alumni.edit', $alumni->id) }}"><i class="fas fa-edit    "></i>  Edit </a>
                         <form action="{{ route('alumni.destroy', $alumni->id )}}" method="get">
@@ -95,6 +100,7 @@ Opsi
                             <button class="btn" type="submit"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
                         </form>
                     </td>
+                    @endcan
                 </tr>
 
                 @endforeach

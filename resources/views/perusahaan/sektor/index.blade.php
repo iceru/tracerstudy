@@ -11,18 +11,21 @@ Sektor Perusahaan
         <h2>Input Data Sektor Perusahaan</h2>
         <hr>
     </div>
-
+    @can('data-create')
     <div class="button-create">
         <a href="{{ route('sektor.create') }}" class="button-red">Create Data Sektor Perusahaan</a>
     </div>
+    @endcan
 
     <div class="output-data">
-        <table class="table">
+        <table class="table tablesorter" id="myTable">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Nama Sektor</th>
+                    <th>No <i class="fas fa-sort    "></i></th>
+                    <th>Nama Sektor <i class="fas fa-sort    "></i></th>
+                    @can('data-edit')
                     <th>Action</th>
+                    @endcan
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +33,7 @@ Sektor Perusahaan
                 <tr>
                     <td scope="row">{{ ($sektor ->currentpage()-1) * $sektor ->perpage() + $loop->index + 1 }}</td>
                     <td>{{ $item->nama_sektor }}</td>
+                    @can('data-edit')
                     <td id="action">
                         <a href="{{ route('sektor.edit', $item->id) }}"><i class="fas fa-edit    "></i>  Edit</a>
                         <form action="{{ route('sektor.destroy', $item->id )}}" method="get">
@@ -38,6 +42,7 @@ Sektor Perusahaan
                             <button class="btn" type="submit"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                         </form>
                     </td>
+                    @endcan
                 </tr>
                 @endforeach
 
@@ -47,3 +52,5 @@ Sektor Perusahaan
     </div>
 </div>
 @endsection
+
+

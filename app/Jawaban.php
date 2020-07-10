@@ -10,6 +10,7 @@ class Jawaban extends Model
     protected $guarded = [];
     protected $table = 'jawaban';
     public $incrementing = false;
+    public $timestamps = true;
 
     public function alumni()
     {

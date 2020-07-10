@@ -53,6 +53,9 @@ class JabatanController extends Controller
      */
     public function storealumni(Request $request)
     {
+        $validate = request()->validate([
+            'nama_jabatan' => 'required|unique:jabatan,nama_jabatan',
+        ]);
         Jabatan::insert([
             'id' => $id = IdGenerator::generate(['table' => 'jabatan', 'length' => 6, 'prefix' =>'JB-']),
             'nama_jabatan' => $request->nama_jabatan

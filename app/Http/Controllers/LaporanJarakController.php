@@ -49,6 +49,16 @@ class LaporanJarakController extends Controller
                 $prdName = 'Program Studi';
             }
 
+            if(request('tgl_pengisian')) {
+                $data = $alumni->where(DB::raw("YEAR(history_pekerjaan.created_at)"), '=', request('tgl_pengisian'))->get();
+                $tglName = request('tgl_pengisian');
+            }
+
+            else {
+                $tglName = 'Tahun Pengisian';
+            }
+
+
             if(request('lulusan')) {
                 $data = $alumni->where(DB::raw("YEAR(tgl_yudisium)"), '=', request('lulusan'))->get();
                 $llsName = request('lulusan');
@@ -67,8 +77,15 @@ class LaporanJarakController extends Controller
                     ->groupBy(DB::raw("YEAR(tgl_yudisium)"))
                     ->get();
 
+                    $tgl = DB::table("history_pekerjaan")
+                    ->select(DB::raw("YEAR(created_at) as tgl"))
+                    ->orderBy('created_at')
+                    ->groupBy(DB::raw("YEAR(created_at)"))
+                    ->get();
 
-            return view ('laporan.jarak', compact('data', 'prodi', 'fakultas', 'lulusan', 'prdName', 'fakultasNama', 'llsName'));
+
+
+            return view ('laporan.jarak', compact('data', 'prodi', 'fakultas', 'lulusan', 'prdName', 'fakultasNama', 'llsName', 'tglName', 'tgl'));
     }
 
     public function showJarak($id) {
@@ -77,7 +94,7 @@ class LaporanJarakController extends Controller
         ->join('mahasiswa', 'mahasiswa.NIM', 'alumni.NIM')
         ->join('perusahaan', 'perusahaan.id', 'history_pekerjaan.id_perusahaan')
         ->join('jabatan', 'jabatan.id', 'history_pekerjaan.id_jabatan')
-        ->select('mahasiswa.nama_mhs', 'alumni.id', 'perusahaan.alamat_perusahaan', 'perusahaan.nama_perusahaan', 'perusahaan.longitude', 'perusahaan.latitude')
+        ->select('mahasiswa.nama_mhs', 'alumni.id', 'perusahaan.alamat_perusahaan', 'perusahaan.nama_perusahaan', 'perusahaan.longitude', 'perusahaan.latitude', 'nomor_perusahaan', 'email_perusahaan')
         ->where('alumni.id', $id)
         ->get();
 
@@ -86,7 +103,8 @@ class LaporanJarakController extends Controller
 
     public function export()
     {
-        return Excel::download(new JarakExport, 'jarak.xlsx');
+        $tanggal = date('Y-m-d');
+        return Excel::download(new JarakExport, $tanggal . ' - jarak.xlsx');
     }
 
 }

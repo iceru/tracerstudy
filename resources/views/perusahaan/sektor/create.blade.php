@@ -5,6 +5,15 @@ Sektor Perusahaan
 @endsection
 
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="wrap-input">
     <div class="input-title">
         <h2>Input Data Sektor Perusahaan</h2>

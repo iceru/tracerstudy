@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js" integrity="sha512-qzgd5cYSZcosqpzpn7zF2ZId8f/8CHmFKZ8j7mU4OUXTNRd5g+ZHBPsgKEwoqxCtdQvExE5LprwwPAgoicguNg==" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.bootstrap.min.css" integrity="sha512-1r2gsUynzocV5QbYgEwbcNGYQeQ4jgHUNZLl+PMr6o248376S3f9k8zmXvsKkU06wH0MrmQacKd0BjJ/kWeeng==" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -77,12 +81,14 @@
                             <li>
                                 <a href="{{ route('kuesioner.index') }}"><i class="fas fa-poll-h fa-fw"></i> &nbsp; Data Kuesioner</a>
                             </li>
+                            @can('data-create')
                             <li>
                                 <a href="{{ route('pertanyaan.create') }}"> <i class="fas fa-question-circle fa-fw"></i> &nbsp; Pertanyaan</a>
                             </li>
                             <li>
                                 <a href="{{ route('opsi.create') }}"> <i class="fa fa-check-square fa-fw" aria-hidden="true"></i> &nbsp; Opsi Pertanyaan</a>
                             </li>
+                            @endcan
                         </ul>
                     </li>
                     {{-- <li>
@@ -138,7 +144,7 @@
 
                     @cannot ('role-edit')
                     <li>
-                        <a class="blue" href="{{ route('users.index') }}">Users</a>
+                        <a class="blue" href="{{ route('users.index') }}"><i class="fas fa-users fa-fw"></i> &nbsp; Users</a>
                     </li>
                     @endcannot
 
@@ -207,7 +213,17 @@
   }
 </script>
 
+<script>
+    function ddTgl() {
+    document.getElementById("ddtgl").classList.toggle("showdd");
+  }
+</script>
 
+<script>
+$(function() {
+  $("#myTable").tablesorter();
+});
+</script>
 
 </body>
 

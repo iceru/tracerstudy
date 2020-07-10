@@ -16,7 +16,7 @@ class ProdiController extends Controller
      */
     public function index()
     {
-        $prodi = Prodi::paginate(15);
+        $prodi = Prodi::orderBy('id_fakultas')->paginate(20);
         $fakultas = Fakultas::all();
 
         return view('prodi.index', compact('prodi', 'fakultas'));
@@ -43,8 +43,18 @@ class ProdiController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = request()->validate([
+            'id' =>'required|unique:program_studi, id',
+            'nama_prodi' => 'required|unique:program_studi, nama_prodi',
+            'id_fakultas' => 'required',
+        ],
+        [
+            'id.unique' => 'ID Program Studi sudah ada',
+            'id.nama_prodi' => 'Nama Program Studi sudah ada',
+        ]);
+
         Prodi::insert([
-            'id' => $id = IdGenerator::generate(['table' => 'program_studi', 'length' => 6, 'prefix' =>'PR-']),
+            'id' => $request->id_prodi,
             'nama_prodi' => $request->nama_prodi,
             'id_fakultas' => $request->id_fakultas,
         ]);
@@ -86,6 +96,7 @@ class ProdiController extends Controller
     public function update(Request $request, $id)
     {
         $prodi = Prodi::where('id', $id)->update([
+            'id' => $request->id_prodi,
             'nama_prodi' => $request->nama_prodi,
             'id_fakultas' => $request->id_fakultas,
         ]);

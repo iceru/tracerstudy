@@ -53,7 +53,9 @@ class PerusahaanController extends Controller
             'alamat_perusahaan' => $request->alamat_perusahaan,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
-            'kontak_perusahaan' => $request->kontak_perusahaan,
+            'regional' => $request->regional,
+            'nomor_perusahaan' => $request->nomor_perusahaan,
+            'email_perusahaan' => $request->email_perusahaan,
             'id_sektor' => $request->id_sektor,
         ]);
 
@@ -72,7 +74,11 @@ class PerusahaanController extends Controller
             'id' => $id = IdGenerator::generate(['table' => 'perusahaan', 'length' => 6, 'prefix' =>'P-']),
             'nama_perusahaan' => $request->nama_perusahaan,
             'alamat_perusahaan' => $request->alamat_perusahaan,
-            'kontak_perusahaan' => $request->kontak_perusahaan,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'regional' => $request->regional,
+            'nomor_perusahaan' => $request->nomor_perusahaan,
+            'email_perusahaan' => $request->email_perusahaan,
             'id_sektor' => $request->id_sektor,
         ]);
 
@@ -118,7 +124,9 @@ class PerusahaanController extends Controller
             'alamat_perusahaan' => $request->alamat_perusahaan,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
-            'kontak_perusahaan' => $request->kontak_perusahaan,
+            'regional' => $request->regional,
+            'nomor_perusahaan' => $request->nomor_perusahaan,
+            'email_perusahaan' => $request->email_perusahaan,
             'id_sektor' => $request->id_sektor,
         ]);
 

@@ -5,6 +5,17 @@ Program Studi
 @endsection
 
 @section('content')
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        Input Error <br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+
+@endif
 <div class="wrap-input">
     <div class="input-title">
         <h2>Input Data Program Studi</h2>
@@ -18,6 +29,11 @@ Program Studi
     <div class="input-form">
         <form action="{{ route('prodi.store') }}" method="post">
             @csrf
+            <div class="form-group row pt-3">
+                <label for="nama" class="col-md-2">ID Program Studi</label>
+                <input type="text" class="form-control col-md-6" name="id" id="id" aria-describedby="helpId"
+                    placeholder="ID Program Studi">
+            </div>
 
             <div class="form-group row pt-3">
                 <label for="nama" class="col-md-2">Nama Program Studi</label>

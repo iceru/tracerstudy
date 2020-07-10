@@ -34,9 +34,22 @@ Perusahaan
                 <div style="width: 100%; height: 100%" id="address-map"></div>
             </div>
 
+            <div class="form-group pt-3">
+                <label for="">Regional Perusahaan</label>
+                <select class="form-control" name="regional" id="regional">
+                    <option value="Lokal">Lokal</option>
+                    <option value="Mancanegara">Mancanegara</option>
+                </select>
+            </div>
+
             <div class="form-group">
-                <label for="nama">Kontak Perusahaan</label>
-                <input type="text" class="form-control" name="kontak_perusahaan" id="kontak_perusahaan">
+                <label for="nama">Nomor Telfon Perusahaan</label>
+                <input type="text" class="form-control" name="nomor_perusahaan" id="nomor_perusahaan">
+            </div>
+
+            <div class="form-group">
+                <label for="nama">Email Perusahaan</label>
+                <input type="text" class="form-control" name="email_perusahaan" id="email_perusahaan">
             </div>
 
             <div class="form-group">

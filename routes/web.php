@@ -137,9 +137,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/chart-waktuPekerjaan', 'LaporanController@chartWaktuPekerjaan')->name('laporan.chartWaktuPekerjaan');
 
     Route::get('/laporan/tahun-kelulusan', 'LaporanController@tahunKelulusan')->name('laporan.tahunKelulusan');
+    Route::get('/chart-tahun-kelulusan', 'LaporanController@chartTahunKelulusan')->name('laporan.chartTahunKelulusan');
     Route::get('/laporan/tahun-kelulusan/detail/{lulusan}', 'LaporanController@detailKelulusan')->name('laporan.detailKelulusan');
 
     Route::get('/laporan/hasil-kuesioner', 'KuesionerController@hasil')->name('kuesioner.hasil');
+
+    Route::get('/laporan/kepuasan-alumni', 'LaporanController@kepuasanAlumni')->name('laporan.kepuasanAlumni');
 
     Route::get('/laporan/index', 'LaporanController@index')->name('laporan.index');
 

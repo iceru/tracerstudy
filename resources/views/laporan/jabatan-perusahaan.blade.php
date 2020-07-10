@@ -68,22 +68,33 @@
             </div>
         </div>
 
+        <div class="lulusan pr-4">
+            <div onclick="ddTgl()" class="wrdd" tabindex="1">
+              <span>{{ $tglName }}</span>
+              <ul class="dd-item" id="ddtgl">
+                @foreach ($tgl as $item)
+                <li><a href="{{request()->fullUrlWithQuery(['tgl_pengisian'=> $item->tgl])}}">{{ $item->tgl }} </a></li>
+                @endforeach
+              </ul>
+            </div>
+        </div>
+
         <a style="margin: 20px 0" href="{{request()->url()}}" class="button-red">Clear Filter</a>
 
     </div>
 
-    <table class="table">
+    <table id="myTable" class="tablesorter table">
         <thead>
             <tr>
-                <th>No</th>
-                <th>Nama Alumni</th>
-                <th>No. HP</th>
-                <th>Email</th>
-                <th>Jabatan</th>
-                <th>Perusahaan</th>
-                <th>Program Studi</th>
-                <th>Fakultas</th>
-                <th>Tahun Kelulusan</th>
+                <th>No <i class="fas fa-sort    "></i></th>
+                <th>Nama Alumni <i class="fas fa-sort    "></i></th>
+                <th>No. HP <i class="fas fa-sort    "></i></th>
+                <th>Email <i class="fas fa-sort    "></i></th>
+                <th>Jabatan <i class="fas fa-sort    "></i></th>
+                <th>Perusahaan <i class="fas fa-sort    "></i></th>
+                <th>Program Studi <i class="fas fa-sort    "></i></th>
+                <th>Tahun Kelulusan <i class="fas fa-sort    "></i></th>
+                <th>Tanggal Pengisian <i class="fas fa-sort    "></i></th>
             </tr>
         </thead>
         <tbody>
@@ -96,12 +107,20 @@
                 <td>{{ $item->nama_jabatan }}</td>
                 <td>{{ $item->nama_perusahaan }}</td>
                 <td>{{ $item->nama_prodi }}</td>
-                <td>{{ $item->nama_fakultas }}</td>
                 <td>{{ $item->lulus }}</td>
+                <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
             </tr>
             @endforeach
 
         </tbody>
     </table>
 </div>
+@endsection
+
+@section('js')
+<script>
+$(function() {
+  $("#myTable").tablesorter();
+});
+</script>
 @endsection

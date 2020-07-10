@@ -14,7 +14,9 @@ Pertanyaan
     <div class="card my-3">
         <div class="card-header d-flex justify-content-between">
             <label for="">{{ $key + 1 }}. {{ $item->nama_pertanyaan }} </label>
+            @can('data-edit')
             <a href="{{ route('pertanyaan.edit', $item->id) }}"> <i class="fas fa-edit    "></i> Edit Pertanyaan</a>
+            @endcan
         </div>
         <div class="card-body">
             <ul class="list-group">
@@ -23,6 +25,7 @@ Pertanyaan
                     <label for="opsi{{ $opsi->id }}">
                     {{ $opsi->nama_opsi }}
                     </label>
+                    @can('data-edit')
                     <div id="action">
                         <a href="{{ route('opsi.edit', $opsi->id) }}"><i class="fas fa-edit    "></i> Edit Opsi</a>
                         <form action="{{ route('opsi.destroy', $opsi->id )}}" method="get">
@@ -31,6 +34,7 @@ Pertanyaan
                            <button class="btn" type="submit"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
                        </form>
                     </div>
+                    @endcan
 
                 </li>
                 @endforeach
@@ -39,9 +43,11 @@ Pertanyaan
             @if ($item->jenis_pertanyaan == 'direct-answer')
             <p>Jawaban Langsung</p>
             @else
+            @can('data-create')
             <div class="tambah-opsi mt-4">
                 <a href="{{ route('opsi.create') }}" class="button-red"> Tambah Opsi</a>
             </div>
+            @endcan
             @endif
 
         </div>
@@ -52,7 +58,9 @@ Pertanyaan
     <div class="card my-3">
         <div class="card-header d-flex justify-content-between">
             <label for="">{{ $keyDa + $key + 2 }}. {{ $item->nama_pertanyaan_da }} </label>
+            @can('data-edit')
             <a href="{{ route('pertanyaan.editDirect', $item->id) }}"> <i class="fas fa-edit    "></i> Edit Pertanyaan</a>
+            @endcan
         </div>
         <div class="card-body">
             Jawaban Langsung
@@ -65,7 +73,9 @@ Pertanyaan
     <div class="card my-3">
         <div class="card-header d-flex justify-content-between">
             <label for="">{{ $keyMa + $keyDa + $key + 3 }}. {{ $item->nama_pertanyaan_ma }} </label>
+            @can('data-edit')
             <a href="{{ route('pertanyaan.editMultiple', $item->id) }}"> <i class="fas fa-edit    "></i> Edit Pertanyaan</a>
+            @endcan
         </div>
         <div class="card-body">
             <ul class="list-group">
@@ -74,6 +84,7 @@ Pertanyaan
                     <label for="opsi{{ $opsi->id }}">
                     {{ $opsi->nama_opsi_ma }}
                     </label>
+                    @can('data-edit')
                     <div id="action">
                         <a href="{{ route('opsi.editMultiple', $opsi->id) }}"><i class="fas fa-edit    "></i> Edit Opsi</a>
                         <form action="{{ route('opsi.destroyMultiple', $opsi->id )}}" method="get">
@@ -82,6 +93,7 @@ Pertanyaan
                            <button class="btn" type="submit"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
                        </form>
                     </div>
+                    @endcan
 
                 </li>
                 @endforeach
@@ -92,8 +104,10 @@ Pertanyaan
     </div>
     @endforeach
 
+    @can('data-create')
     <div class="form-group py-4">
         <a href="{{ route('pertanyaan.create') }}" class="button-red"> Tambah Pertanyaan</a>
     </div>
+    @endcan
 </div>
 @endsection
