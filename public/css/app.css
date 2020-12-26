@@ -11531,12 +11531,12 @@ a:hover {
 .button-red {
   outline: none;
   border: none;
-  background-color: #8d3535;
+  background-color: #A01627;
   color: white;
   border-radius: 5px;
   padding: 6px 12px;
   transition: 0.2s ease-in;
-  border: 1px solid #8d3535;
+  border: 1px solid #A01627;
 }
 
 .button-red:hover {
@@ -11549,7 +11549,7 @@ a:hover {
 small .btn {
   padding: 6px 0;
   font-size: 1em;
-  color: #8d3535;
+  color: #A01627;
   text-decoration: underline;
   outline: none;
 }
@@ -11574,5 +11574,18 @@ small .btn {
 .alumni .alumni-right {
   margin-left: 40px;
   width: 45%;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.page-link {
+  color: #A01627;
+}
+
+.page-item.active .page-link {
+  background-color: #A01627;
+  border-color: #A01627;
 }
 

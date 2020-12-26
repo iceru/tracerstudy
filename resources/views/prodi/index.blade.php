@@ -23,6 +23,7 @@ Program Studi
             <thead>
                 <tr>
                     <th>No <i class="fas fa-sort    "></i></th>
+                    <th>ID Prodi <i class="fas fa-sort    "></i></th>
                     <th>Nama Prodi <i class="fas fa-sort    "></i></th>
                     <th>Fakultas <i class="fas fa-sort    "></i></th>
                     @can ('data-edit')
@@ -34,6 +35,7 @@ Program Studi
                 @foreach ($prodi as $item)
                 <tr>
                     <td scope="row">{{ ($prodi ->currentpage()-1) * $prodi ->perpage() + $loop->index + 1 }}</td>
+                    <td>{{ $item->id }}</td>
                     <td>{{ $item->nama_prodi }}</td>
                     <td>{{ $item->fakultas->nama_fakultas }}</td>
                     @can ('data-edit')

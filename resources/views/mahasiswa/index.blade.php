@@ -27,7 +27,7 @@ Mahasiswa
 <div class="wrap-input">
 
     <div class="input-title">
-        <h2>Data Mahasiswa</h2>
+        <h2>Data Mahasiswa Lulusan</h2>
         <hr>
     </div>
 

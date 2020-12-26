@@ -8,7 +8,7 @@ Opsi
 <div class="wrap-input">
 
     <div class="input-title">
-        <h2>Data Alumni</h2>
+        <h2>Data Tracing Alumni</h2>
         <hr>
     </div>
 
